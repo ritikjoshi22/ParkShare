@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">ParkShare</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Auth & Splash -->
+    <string name="splash_sub_title">Smart Parking &amp; Assistance</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="register">Register</string>
+    <string name="select_role">Select Your Role</string>
+
+    <!-- Roles -->
+    <string name="driver">Driver</string>
+    <string name="parking_owner">Parking Owner</string>
+    <string name="technician">Technician</string>
+
+    <!-- Navigation -->
+    <string name="title_home">Home</string>
+    <string name="title_bookings">Bookings</string>
+    <string name="title_sos">SOS</string>
+    <string name="title_profile">Profile</string>
+
+    <!-- Home -->
+    <string name="categories">Categories</string>
+    <string name="see_all">See All</string>
+    <string name="recommended">Recommended for You</string>
+    <string name="nearby">Nearby Parking</string>
+    <string name="search_hint">Search parking spots...</string>
+
+    <!-- SOS -->
+    <string name="emergency_sos">Emergency SOS</string>
+    <string name="sos_description">Press the button below for immediate roadside assistance or emergency services.</string>
+    <string name="current_location">Current Location</string>
+    <string name="detecting_location">Detecting location...</string>
+    <string name="sos_label">SOS</string>
+    <string name="confirm_emergency">Confirm Emergency</string>
+    <string name="emergency_msg">Are you sure you want to send an emergency SOS request? Local technicians and services will be notified.</string>
+    <string name="send_sos">SEND SOS</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Misc -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <!-- Profile -->
+    <string name="user_name">John Doe</string>
+    <string name="user_email">john.doe@example.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="bookings_count">12</string>
+    <string name="bookings_label">Bookings</string>
+    <string name="spent_amount">$45.00</string>
+    <string name="spent_label">Spent</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="logout">Logout</string>
+    <string name="settings_label">Settings</string>
+
+    <!-- Bookings -->
+    <string name="no_bookings">No Bookings Yet</string>
+    <string name="no_bookings_desc">Your parking bookings will appear here.</string>
+    <string name="explore_parking">Explore Parking</string>
+</resources>
