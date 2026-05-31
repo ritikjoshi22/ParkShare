@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- BOOKINGS LIST -->
+    <!-- BOOKING LIST -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookings"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="12dp"
-        android:paddingBottom="80dp"
+        android:paddingBottom="90dp"
         android:overScrollMode="never"
         android:scrollbars="none"
         tools:listitem="@layout/item_parking" />
@@ -30,43 +30,50 @@
         android:padding="24dp"
         android:visibility="gone">
 
+        <!-- ICON -->
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="@drawable/ic_empty_parking"
-            android:tint="@color/gray_400" />
+            android:alpha="0.8"
+            android:contentDescription="Empty state icon" />
 
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Parking Bookings Yet"
-            android:textSize="20sp"
+            android:text="No Parking Bookings"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:gravity="center"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="18dp" />
 
+        <!-- DESCRIPTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You haven’t booked any parking slots yet. Start exploring available spaces near you."
+            android:text="You haven’t booked any parking yet. Explore nearby spaces and reserve your spot in seconds."
             android:textSize="14sp"
             android:textColor="@color/text_secondary"
             android:gravity="center"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginTop="8dp" />
+            android:lineSpacingExtra="6dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
 
+        <!-- BUTTON -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnExplore"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="Explore Parking"
             android:textAllCaps="false"
-            android:layout_marginTop="20dp"
-            app:cornerRadius="12dp"
+            android:layout_marginTop="22dp"
+            app:cornerRadius="14dp"
             app:backgroundTint="@color/primary"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp" />
+            android:paddingStart="26dp"
+            android:paddingEnd="26dp" />
 
     </LinearLayout>
 
