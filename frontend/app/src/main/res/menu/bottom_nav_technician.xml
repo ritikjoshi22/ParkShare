@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tech_dashboard"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="@string/tech_dashboard" />
+    <item
+        android:id="@+id/tech_requests"
+        android:icon="@android:drawable/ic_menu_call"
+        android:title="@string/service_requests" />
+    <item
+        android:id="@+id/tech_services"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/services" />
+    <item
+        android:id="@+id/tech_earnings"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/earnings" />
+    <item
+        android:id="@+id/tech_profile"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="@string/title_profile" />
+</menu>

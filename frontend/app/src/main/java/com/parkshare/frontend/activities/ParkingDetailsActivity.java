@@ -1,7 +1,6 @@
 package com.parkshare.frontend.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.parkshare.frontend.repository.BookingRepository;
 import com.parkshare.frontend.repository.FavoriteRepository;
 import com.parkshare.frontend.repository.ParkingRepository;
 import com.parkshare.frontend.repository.ReviewRepository;
+import com.parkshare.frontend.utils.MapsNavigationHelper;
 import com.parkshare.frontend.utils.ParkingMapper;
 import com.parkshare.frontend.utils.RepositoryCallback;
 
@@ -68,7 +68,9 @@ public class ParkingDetailsActivity extends AppCompatActivity {
         binding.btnFullMap.setOnClickListener(v -> {
             if (parking != null) {
                 Intent intent = new Intent(this, ParkingMapActivity.class);
-                intent.putExtra("selected_parking", parking);
+                intent.putExtra(ParkingMapActivity.EXTRA_SELECTED_PARKING, parking);
+                intent.putExtra(ParkingMapActivity.EXTRA_LAT, parking.getLatitude());
+                intent.putExtra(ParkingMapActivity.EXTRA_LNG, parking.getLongitude());
                 startActivity(intent);
             }
         });
@@ -259,14 +261,8 @@ public class ParkingDetailsActivity extends AppCompatActivity {
         if (parking == null) {
             return;
         }
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + parking.getLatitude() + "," + parking.getLongitude());
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        } else {
-            Toast.makeText(this, "Google Maps not found", Toast.LENGTH_SHORT).show();
-        }
+        MapsNavigationHelper.openNavigation(this, parking.getLatitude(), parking.getLongitude(),
+                parking.getName());
     }
 
     @Override

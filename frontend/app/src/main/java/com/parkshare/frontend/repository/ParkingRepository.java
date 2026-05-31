@@ -22,4 +22,16 @@ public class ParkingRepository extends BaseRepository {
     public void getById(long id, RepositoryCallback<ParkingSpaceDto> callback) {
         enqueue(api.parkingSpace(id), callback);
     }
+
+    public void create(java.util.Map<String, Object> body, RepositoryCallback<ParkingSpaceDto> callback) {
+        enqueue(api.createParkingSpace(body), callback);
+    }
+
+    public void update(long id, java.util.Map<String, Object> body, RepositoryCallback<ParkingSpaceDto> callback) {
+        enqueue(api.updateParkingSpace(id, body), callback);
+    }
+
+    public void delete(long id, RepositoryCallback<Void> callback) {
+        enqueueVoid(api.deleteParkingSpace(id), callback);
+    }
 }

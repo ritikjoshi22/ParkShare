@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.parkshare.frontend.databinding.ActivityRoleSelectionBinding;
 import com.parkshare.frontend.repository.AuthRepository;
+import com.parkshare.frontend.utils.RoleRouter;
 import com.parkshare.frontend.utils.SessionManager;
 
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class RoleSelectionActivity extends AppCompatActivity {
             @Override
             public void onSuccess(com.parkshare.api.models.UserDto data) {
                 setLoading(false);
-                startActivity(new Intent(RoleSelectionActivity.this, MainActivity.class));
+                RoleRouter.openDashboard(RoleSelectionActivity.this);
                 finishAffinity();
             }
 
