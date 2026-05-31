@@ -8,6 +8,7 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parkshare.frontend.R;
+import com.parkshare.frontend.utils.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -16,16 +17,17 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            // Check login status here (Placeholder)
-            boolean isLoggedIn = false;
+        SessionManager sessionManager = SessionManager.getInstance(this);
 
-            if (isLoggedIn) {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Intent intent;
+            if (sessionManager.isLoggedIn()) {
+                intent = new Intent(SplashActivity.this, MainActivity.class);
             } else {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                intent = new Intent(SplashActivity.this, LoginActivity.class);
             }
+            startActivity(intent);
             finish();
-        }, 2000);
+        }, 1500);
     }
 }
