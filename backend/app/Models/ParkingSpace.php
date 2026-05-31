@@ -47,6 +47,21 @@ class ParkingSpace extends Model
 
     public function scopeNearby(Builder $query, float $latitude, float $longitude, float $radiusKm = 10): Builder
     {
+        $driver = $query->getConnection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $latDelta = $radiusKm / 111.045;
+            $lngDelta = $radiusKm / max(0.01, abs(cos(deg2rad($latitude))) * 111.045);
+
+            return $query
+                ->whereBetween('latitude', [$latitude - $latDelta, $latitude + $latDelta])
+                ->whereBetween('longitude', [$longitude - $lngDelta, $longitude + $lngDelta])
+                ->orderByRaw(
+                    '((latitude - ?) * (latitude - ?)) + ((longitude - ?) * (longitude - ?))',
+                    [$latitude, $latitude, $longitude, $longitude]
+                );
+        }
+
         $haversine = '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude))))';
 
         return $query

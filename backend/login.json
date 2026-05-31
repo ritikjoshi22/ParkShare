@@ -1,0 +1,3 @@
+<br />
+<b>Warning</b>:  The use statement with non-compound name 'Throwable' has no effect in <b>E:\Projects\ParkShare\backend\bootstrap\app.php</b> on line <b>15</b><br />
+{"success":true,"message":"Login successful.","data":{"user":{"id":2,"full_name":"Suman Thapa","email":"driver@parkshare.test","phone":"+9779801111001","role":"driver","profile_image":null,"address":"Thamel, Kathmandu","latitude":27.715,"longitude":85.3123,"is_active":true,"created_at":"2026-05-28T17:55:02+00:00","technician":null},"token":"9|P6tRvSZYteTadxOCrBF6zfY2gszZo755F2POktya88793f03","token_type":"Bearer"}}

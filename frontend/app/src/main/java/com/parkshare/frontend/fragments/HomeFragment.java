@@ -19,11 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.parkshare.api.models.ParkingSpaceDto;
 import com.parkshare.frontend.activities.ParkingDetailsActivity;
 import com.parkshare.frontend.activities.ParkingMapActivity;
 import com.parkshare.frontend.adapters.ParkingAdapter;
 import com.parkshare.frontend.databinding.FragmentHomeBinding;
 import com.parkshare.frontend.models.Parking;
+import com.parkshare.frontend.repository.ParkingRepository;
+import com.parkshare.frontend.utils.ParkingMapper;
+import com.parkshare.frontend.utils.RepositoryCallback;
+import com.parkshare.frontend.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +38,13 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
     private FragmentHomeBinding binding;
     private ParkingAdapter recommendedAdapter;
     private ParkingAdapter nearbyAdapter;
-    private List<Parking> allParkingList = new ArrayList<>();
+    private final List<Parking> allParkingList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
+    private ParkingRepository parkingRepository;
+    private SessionManager sessionManager;
+    private double userLat = 27.7172;
+    private double userLng = 85.3240;
+    private int currentPage = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,31 +55,26 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
+        sessionManager = SessionManager.getInstance(requireContext());
+        parkingRepository = new ParkingRepository();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-        
-        loadDummyData();
+
         setupRecyclerViews();
         setupSearchView();
+        binding.swipeRefresh.setOnRefreshListener(this::loadParkingData);
+        binding.btnRetry.setOnClickListener(v -> loadParkingData());
+
         checkLocationPermission();
     }
 
-    private void loadDummyData() {
-        allParkingList.clear();
-        allParkingList.add(new Parking("1", "Kathmandu Mall Parking", "Kanti Path, Kathmandu", 27.7029, 85.3120, 50.0, 100, 12, 4.8, "", "Multi-story secure parking facility.", "24/7", true));
-        allParkingList.add(new Parking("2", "Civil Mall Parking", "Sundhara, Kathmandu", 27.7006, 85.3121, 60.0, 150, 45, 4.2, "", "Safe underground parking for mall visitors.", "10 AM - 9 PM", true));
-        allParkingList.add(new Parking("3", "Bhatbhateni Maharajgunj", "Maharajgunj, Kathmandu", 27.7347, 85.3323, 40.0, 80, 20, 4.5, "", "Parking area for Bhatbhateni shoppers.", "8 AM - 10 PM", true));
-        allParkingList.add(new Parking("4", "New Road Parking", "New Road, Kathmandu", 27.7038, 85.3114, 50.0, 60, 0, 3.8, "", "Public parking area in the busy New Road.", "8 AM - 8 PM", false));
-        allParkingList.add(new Parking("5", "Patan Parking Hub", "Patan Durbar Square", 27.6727, 85.3252, 40.0, 50, 15, 4.4, "", "Convenient parking near the historic Patan Durbar Square.", "24/7", true));
-        allParkingList.add(new Parking("6", "Pokhara Lakeside Parking", "Lakeside, Pokhara", 28.2095, 83.9587, 30.0, 100, 40, 4.9, "", "Scenic parking area near Phewa Lake.", "24/7", true));
-    }
-
     private void setupRecyclerViews() {
-        recommendedAdapter = new ParkingAdapter(new ArrayList<>(allParkingList.subList(0, 3)), this);
-        binding.rvRecommended.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recommendedAdapter = new ParkingAdapter(new ArrayList<>(), this);
+        binding.rvRecommended.setLayoutManager(
+                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvRecommended.setAdapter(recommendedAdapter);
 
-        nearbyAdapter = new ParkingAdapter(new ArrayList<>(allParkingList), this);
+        nearbyAdapter = new ParkingAdapter(new ArrayList<>(), this);
         binding.rvNearby.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvNearby.setAdapter(nearbyAdapter);
     }
@@ -90,34 +95,100 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
         });
     }
 
+    private void loadParkingData() {
+        showError(false);
+        if (!binding.swipeRefresh.isRefreshing()) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+        }
+
+        RepositoryCallback<List<ParkingSpaceDto>> callback = new RepositoryCallback<List<ParkingSpaceDto>>() {
+            @Override
+            public void onSuccess(List<ParkingSpaceDto> data) {
+                binding.progressBar.setVisibility(View.GONE);
+                binding.swipeRefresh.setRefreshing(false);
+                allParkingList.clear();
+                if (data != null) {
+                    for (ParkingSpaceDto dto : data) {
+                        Parking parking = ParkingMapper.fromDto(dto);
+                        if (parking.getDistance() == null && dto.getDistanceKm() != null) {
+                            parking.setDistance(String.format("%.1f km away", dto.getDistanceKm()));
+                        }
+                        allParkingList.add(parking);
+                    }
+                }
+                updateLists();
+                if (allParkingList.isEmpty()) {
+                    showError(true, "No parking spaces found nearby");
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                binding.progressBar.setVisibility(View.GONE);
+                binding.swipeRefresh.setRefreshing(false);
+                showError(true, message);
+            }
+        };
+
+        if (sessionManager.isOwner()) {
+            parkingRepository.getAll(currentPage, null, null, callback);
+        } else {
+            parkingRepository.getNearby(userLat, userLng, currentPage, callback);
+        }
+    }
+
+    private void updateLists() {
+        List<Parking> recommended = allParkingList.size() > 3
+                ? new ArrayList<>(allParkingList.subList(0, 3))
+                : new ArrayList<>(allParkingList);
+        recommendedAdapter.updateList(recommended);
+        nearbyAdapter.updateList(new ArrayList<>(allParkingList));
+    }
+
     private void filter(String text) {
         List<Parking> filteredList = new ArrayList<>();
+        String query = text != null ? text.toLowerCase() : "";
         for (Parking item : allParkingList) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase()) || 
-                item.getAddress().toLowerCase().contains(text.toLowerCase())) {
+            if (item.getName().toLowerCase().contains(query)
+                    || item.getAddress().toLowerCase().contains(query)) {
                 filteredList.add(item);
             }
         }
         nearbyAdapter.updateList(filteredList);
     }
 
+    private void showError(boolean show) {
+        showError(show, null);
+    }
+
+    private void showError(boolean show, String message) {
+        binding.layoutError.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (message != null) {
+            binding.tvError.setText(message);
+        }
+    }
+
     private void checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
         } else {
             getCurrentLocation();
         }
+        loadParkingData();
     }
 
     private void getCurrentLocation() {
         try {
             fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
                 if (location != null) {
+                    userLat = location.getLatitude();
+                    userLng = location.getLongitude();
                     updateDistances(location);
                 }
             });
         } catch (SecurityException e) {
-            e.printStackTrace();
+            // default Kathmandu coordinates already set
         }
     }
 
@@ -127,7 +198,6 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
             Location.distanceBetween(userLocation.getLatitude(), userLocation.getLongitude(),
                     parking.getLatitude(), parking.getLongitude(), results);
             float distanceInMeters = results[0];
-            
             if (distanceInMeters >= 1000) {
                 parking.setDistance(String.format("%.1f km away", distanceInMeters / 1000.0));
             } else {
@@ -141,7 +211,7 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
     @Override
     public void onParkingClick(Parking parking) {
         Intent intent = new Intent(getContext(), ParkingDetailsActivity.class);
-        intent.putExtra("parking", parking);
+        intent.putExtra(ParkingDetailsActivity.EXTRA_PARKING_ID, Long.parseLong(parking.getId()));
         startActivity(intent);
     }
 
@@ -153,9 +223,12 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 1001 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == 1001 && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
+            loadParkingData();
         }
     }
 
