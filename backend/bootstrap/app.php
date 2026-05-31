@@ -83,4 +83,22 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], $e->getStatusCode());
             }
         });
+
+        $exceptions->render(function (Throwable $e, Request $request) {
+            if ($request->is('api/*') && ! $e instanceof ValidationException
+                && ! $e instanceof AuthenticationException
+                && ! $e instanceof AuthorizationException
+                && ! $e instanceof ModelNotFoundException
+                && ! $e instanceof NotFoundHttpException
+                && ! $e instanceof HttpException) {
+                $message = config('app.debug')
+                    ? $e->getMessage()
+                    : 'Server error. Please try again.';
+
+                return response()->json([
+                    'success' => false,
+                    'message' => $message,
+                ], 500);
+            }
+        });
     })->create();

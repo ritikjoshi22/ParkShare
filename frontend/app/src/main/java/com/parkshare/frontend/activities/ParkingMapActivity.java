@@ -1,16 +1,17 @@
 package com.parkshare.frontend.activities;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+import com.parkshare.api.models.ParkingSpaceDto;
 import com.parkshare.frontend.databinding.ActivityParkingMapBinding;
 import com.parkshare.frontend.models.Parking;
+import com.parkshare.frontend.repository.ParkingRepository;
+import com.parkshare.frontend.utils.ParkingMapper;
+import com.parkshare.frontend.utils.RepositoryCallback;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -26,7 +27,8 @@ public class ParkingMapActivity extends AppCompatActivity {
 
     private ActivityParkingMapBinding binding;
     private MyLocationNewOverlay mLocationOverlay;
-    private List<Parking> parkingList = new ArrayList<>();
+    private final List<Parking> parkingList = new ArrayList<>();
+    private final ParkingRepository parkingRepository = new ParkingRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,7 @@ public class ParkingMapActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setupMap();
-        loadDummyData();
-        addMarkers();
+        loadParkingFromApi();
 
         binding.fabBack.setOnClickListener(v -> finish());
         binding.fabMyLocation.setOnClickListener(v -> {
@@ -49,7 +50,6 @@ public class ParkingMapActivity extends AppCompatActivity {
             }
         });
 
-        // Handle intent for specific parking focus
         Parking selectedParking = (Parking) getIntent().getSerializableExtra("selected_parking");
         if (selectedParking != null) {
             GeoPoint point = new GeoPoint(selectedParking.getLatitude(), selectedParking.getLongitude());
@@ -62,7 +62,7 @@ public class ParkingMapActivity extends AppCompatActivity {
         binding.mapView.setTileSource(TileSourceFactory.MAPNIK);
         binding.mapView.setMultiTouchControls(true);
         binding.mapView.getController().setZoom(14.0);
-        GeoPoint startPoint = new GeoPoint(27.7172, 85.3240); // Kathmandu
+        GeoPoint startPoint = new GeoPoint(27.7172, 85.3240);
         binding.mapView.getController().setCenter(startPoint);
 
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), binding.mapView);
@@ -70,12 +70,24 @@ public class ParkingMapActivity extends AppCompatActivity {
         binding.mapView.getOverlays().add(mLocationOverlay);
     }
 
-    private void loadDummyData() {
-        // This should ideally come from a repository or intent
-        parkingList.add(new Parking("1", "Kathmandu Mall Parking", "Kanti Path, Kathmandu", 27.7029, 85.3120, 50.0, 100, 12, 4.5, "", "Secure parking in the heart of the city.", "24/7", true));
-        parkingList.add(new Parking("2", "Civil Mall Parking", "Sundhara, Kathmandu", 27.7006, 85.3121, 60.0, 150, 45, 4.2, "", "Underground parking at Civil Mall.", "10 AM - 9 PM", true));
-        parkingList.add(new Parking("3", "Durbar Marg Parking", "Durbar Marg, Kathmandu", 27.7107, 85.3168, 80.0, 50, 5, 4.8, "", "Premium parking near Durbar Marg.", "24/7", true));
-        // Add more as needed
+    private void loadParkingFromApi() {
+        parkingRepository.getNearby(27.7172, 85.3240, 1, new RepositoryCallback<List<ParkingSpaceDto>>() {
+            @Override
+            public void onSuccess(List<ParkingSpaceDto> data) {
+                parkingList.clear();
+                if (data != null) {
+                    for (ParkingSpaceDto dto : data) {
+                        parkingList.add(ParkingMapper.fromDto(dto));
+                    }
+                }
+                addMarkers();
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(ParkingMapActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void addMarkers() {
@@ -85,7 +97,7 @@ public class ParkingMapActivity extends AppCompatActivity {
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setTitle(parking.getName());
             marker.setSnippet(parking.getAddress() + "\nPrice: NPR " + parking.getPricePerHour() + "/hr");
-            
+
             marker.setOnMarkerClickListener((m, mapView) -> {
                 m.showInfoWindow();
                 return true;

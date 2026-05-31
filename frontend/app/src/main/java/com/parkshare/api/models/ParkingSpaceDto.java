@@ -1,0 +1,114 @@
+package com.parkshare.api.models;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+public class ParkingSpaceDto {
+    @SerializedName("id")
+    private long id;
+
+    @SerializedName("parking_name")
+    private String parkingName;
+
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("address")
+    private String address;
+
+    @SerializedName("latitude")
+    private double latitude;
+
+    @SerializedName("longitude")
+    private double longitude;
+
+    @SerializedName("price_per_hour")
+    private double pricePerHour;
+
+    @SerializedName("total_slots")
+    private int totalSlots;
+
+    @SerializedName("available_slots")
+    private int availableSlots;
+
+    @SerializedName("vehicle_type")
+    private String vehicleType;
+
+    @SerializedName("opening_time")
+    private String openingTime;
+
+    @SerializedName("closing_time")
+    private String closingTime;
+
+    @SerializedName("is_verified")
+    private boolean verified;
+
+    @SerializedName("is_active")
+    private boolean active;
+
+    @SerializedName("distance_km")
+    private Double distanceKm;
+
+    @SerializedName("images")
+    private List<ParkingImageDto> images;
+
+    @SerializedName("reviews_avg_rating")
+    private Double reviewsAvgRating;
+
+    public long getId() {
+        return id;
+    }
+
+    public String getParkingName() {
+        return parkingName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getPricePerHour() {
+        return pricePerHour;
+    }
+
+    public int getTotalSlots() {
+        return totalSlots;
+    }
+
+    public int getAvailableSlots() {
+        return availableSlots;
+    }
+
+    public String getOpeningTime() {
+        return openingTime;
+    }
+
+    public String getClosingTime() {
+        return closingTime;
+    }
+
+    public Double getDistanceKm() {
+        return distanceKm;
+    }
+
+    public List<ParkingImageDto> getImages() {
+        return images;
+    }
+
+    public Double getReviewsAvgRating() {
+        return reviewsAvgRating;
+    }
+}
