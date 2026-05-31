@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Find Parking"
                 android:textColor="@color/text_primary"
-                android:textSize="28sp"
+                android:textSize="50sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
