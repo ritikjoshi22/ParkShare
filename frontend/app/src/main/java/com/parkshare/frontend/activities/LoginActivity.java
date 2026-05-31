@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToMain() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        com.parkshare.frontend.utils.RoleRouter.openDashboard(this);
         finish();
     }
 }

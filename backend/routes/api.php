@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\FavoriteParkingController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\OwnerStatsController;
 use App\Http\Controllers\Api\ParkingAvailabilityController;
 use App\Http\Controllers\Api\ParkingImageController;
 use App\Http\Controllers\Api\ParkingSpaceController;
@@ -35,6 +36,8 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
         Route::put('users/{user}', [UserController::class, 'update']);
         Route::delete('users/{user}', [UserController::class, 'destroy']);
     });
+
+    Route::get('owner/stats', [OwnerStatsController::class, 'index']);
 
     Route::apiResource('parking-spaces', ParkingSpaceController::class);
     Route::post('parking-spaces/{parking_space}/images', [ParkingImageController::class, 'store']);

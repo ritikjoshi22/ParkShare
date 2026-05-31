@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_owner"
+    app:startDestination="@id/owner_dashboard">
+
+    <fragment
+        android:id="@+id/owner_dashboard"
+        android:name="com.parkshare.frontend.fragments.owner.OwnerDashboardFragment"
+        android:label="@string/owner_dashboard" />
+
+    <fragment
+        android:id="@+id/owner_parking"
+        android:name="com.parkshare.frontend.fragments.owner.OwnerParkingFragment"
+        android:label="@string/my_parking" />
+
+    <fragment
+        android:id="@+id/owner_bookings"
+        android:name="com.parkshare.frontend.fragments.owner.OwnerBookingsFragment"
+        android:label="@string/title_bookings" />
+
+    <fragment
+        android:id="@+id/owner_analytics"
+        android:name="com.parkshare.frontend.fragments.owner.OwnerAnalyticsFragment"
+        android:label="@string/analytics" />
+
+    <fragment
+        android:id="@+id/owner_profile"
+        android:name="com.parkshare.frontend.fragments.owner.OwnerProfileFragment"
+        android:label="@string/title_profile" />
+</navigation>

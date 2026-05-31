@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_technician"
+    app:startDestination="@id/tech_dashboard">
+
+    <fragment
+        android:id="@+id/tech_dashboard"
+        android:name="com.parkshare.frontend.fragments.technician.TechnicianDashboardFragment"
+        android:label="@string/tech_dashboard" />
+
+    <fragment
+        android:id="@+id/tech_requests"
+        android:name="com.parkshare.frontend.fragments.technician.TechnicianRequestsFragment"
+        android:label="@string/service_requests" />
+
+    <fragment
+        android:id="@+id/tech_services"
+        android:name="com.parkshare.frontend.fragments.technician.TechnicianServicesFragment"
+        android:label="@string/services" />
+
+    <fragment
+        android:id="@+id/tech_earnings"
+        android:name="com.parkshare.frontend.fragments.technician.TechnicianEarningsFragment"
+        android:label="@string/earnings" />
+
+    <fragment
+        android:id="@+id/tech_profile"
+        android:name="com.parkshare.frontend.fragments.technician.TechnicianProfileFragment"
+        android:label="@string/title_profile" />
+</navigation>

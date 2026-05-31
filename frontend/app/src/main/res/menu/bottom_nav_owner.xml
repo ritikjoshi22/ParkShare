@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/owner_dashboard"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="@string/owner_dashboard" />
+    <item
+        android:id="@+id/owner_parking"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/my_parking" />
+    <item
+        android:id="@+id/owner_bookings"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/title_bookings" />
+    <item
+        android:id="@+id/owner_analytics"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/analytics" />
+    <item
+        android:id="@+id/owner_profile"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="@string/title_profile" />
+</menu>

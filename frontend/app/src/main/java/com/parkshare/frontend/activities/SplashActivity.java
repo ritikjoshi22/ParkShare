@@ -8,6 +8,7 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parkshare.frontend.R;
+import com.parkshare.frontend.utils.RoleRouter;
 import com.parkshare.frontend.utils.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,13 +21,11 @@ public class SplashActivity extends AppCompatActivity {
         SessionManager sessionManager = SessionManager.getInstance(this);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent;
             if (sessionManager.isLoggedIn()) {
-                intent = new Intent(SplashActivity.this, MainActivity.class);
+                RoleRouter.openDashboard(SplashActivity.this);
             } else {
-                intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             }
-            startActivity(intent);
             finish();
         }, 1500);
     }

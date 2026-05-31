@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_driver"
+    app:startDestination="@id/driver_home">
+
+    <fragment
+        android:id="@+id/driver_home"
+        android:name="com.parkshare.frontend.fragments.driver.DriverHomeFragment"
+        android:label="@string/title_home" />
+
+    <fragment
+        android:id="@+id/driver_bookings"
+        android:name="com.parkshare.frontend.fragments.driver.DriverBookingsFragment"
+        android:label="@string/title_bookings" />
+
+    <fragment
+        android:id="@+id/driver_sos"
+        android:name="com.parkshare.frontend.fragments.driver.DriverSosFragment"
+        android:label="@string/title_sos" />
+
+    <fragment
+        android:id="@+id/driver_notifications"
+        android:name="com.parkshare.frontend.fragments.driver.DriverNotificationsFragment"
+        android:label="@string/notifications" />
+
+    <fragment
+        android:id="@+id/driver_profile"
+        android:name="com.parkshare.frontend.fragments.driver.DriverProfileFragment"
+        android:label="@string/title_profile" />
+</navigation>

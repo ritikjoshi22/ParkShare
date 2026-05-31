@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment implements ParkingAdapter.OnParkingAc
     @Override
     public void onViewOnMapClick(Parking parking) {
         Intent intent = new Intent(getContext(), ParkingMapActivity.class);
-        intent.putExtra("selected_parking", parking);
+        intent.putExtra(ParkingMapActivity.EXTRA_SELECTED_PARKING, parking);
         startActivity(intent);
     }
 
