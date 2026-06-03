@@ -23,9 +23,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
     private final List<BookingDto> items = new ArrayList<>();
     private final OnBookingActionListener listener;
+    private boolean allowCancel = true;
 
     public BookingAdapter(OnBookingActionListener listener) {
         this.listener = listener;
+    }
+
+    public void setAllowCancel(boolean allowCancel) {
+        this.allowCancel = allowCancel;
     }
 
     public void setItems(List<BookingDto> bookings) {
@@ -55,8 +60,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         holder.binding.tvAmount.setText(String.format(Locale.getDefault(), "NPR %.0f", booking.getTotalAmount()));
         holder.binding.tvStatus.setText(capitalize(booking.getBookingStatus()));
 
-        boolean cancellable = "pending".equals(booking.getBookingStatus())
-                || "confirmed".equals(booking.getBookingStatus());
+        boolean cancellable = allowCancel && ("pending".equals(booking.getBookingStatus())
+                || "confirmed".equals(booking.getBookingStatus()));
         holder.binding.btnCancel.setVisibility(cancellable ? View.VISIBLE : View.GONE);
         holder.binding.btnCancel.setOnClickListener(v -> listener.onCancel(booking));
 

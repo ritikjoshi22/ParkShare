@@ -1,0 +1,6 @@
+# Android local.properties (optional)
+#
+# Copy to frontend/local.properties if needed for SDK path (Android Studio usually creates this automatically).
+#
+# Maps: in-app display uses OpenStreetMap (no API key required).
+# Navigate buttons open Google Maps externally — install Google Maps on the device/emulator image.

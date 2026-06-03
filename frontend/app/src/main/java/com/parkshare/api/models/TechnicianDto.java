@@ -59,6 +59,18 @@ public class TechnicianDto {
         return services;
     }
 
+    public Double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public int getExperienceYears() {
+        return experienceYears;
+    }
+
+    public int getServiceRadiusKm() {
+        return serviceRadiusKm;
+    }
+
     public Double getReviewsAvgRating() {
         return reviewsAvgRating;
     }

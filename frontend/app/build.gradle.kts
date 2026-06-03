@@ -18,6 +18,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Emulator: 10.0.2.2 → host machine. Physical device: use your PC LAN IP.
+        buildConfigField("String", "API_BASE_URL", "\"http://192.168.1.2:8000/api/v1/\"")
     }
 
     buildTypes {
@@ -30,11 +33,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -47,6 +57,13 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation("org.osmdroid:osmdroid-android:6.1.18")
     implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+    implementation(libs.gson)
+    implementation(libs.glide)
+    implementation(libs.swiperefresh)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)

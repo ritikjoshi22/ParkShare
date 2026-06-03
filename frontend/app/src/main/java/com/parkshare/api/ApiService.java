@@ -20,6 +20,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -56,6 +57,18 @@ public interface ApiService {
 
     @GET("parking-spaces/{id}")
     Call<ApiResponse<ParkingSpaceDto>> parkingSpace(@Path("id") long id);
+
+    @POST("parking-spaces")
+    Call<ApiResponse<ParkingSpaceDto>> createParkingSpace(@Body Map<String, Object> body);
+
+    @PUT("parking-spaces/{id}")
+    Call<ApiResponse<ParkingSpaceDto>> updateParkingSpace(@Path("id") long id, @Body Map<String, Object> body);
+
+    @DELETE("parking-spaces/{id}")
+    Call<ApiResponse<Void>> deleteParkingSpace(@Path("id") long id);
+
+    @GET("owner/stats")
+    Call<ApiResponse<com.parkshare.api.models.OwnerStatsDto>> ownerStats();
 
     @GET("bookings")
     Call<ApiResponse<List<BookingDto>>> bookings(
@@ -137,4 +150,14 @@ public interface ApiService {
 
     @POST("notifications/read-all")
     Call<ApiResponse<Void>> markAllNotificationsRead();
+
+    @PUT("technicians/{id}")
+    Call<ApiResponse<TechnicianDto>> updateTechnician(@Path("id") long id, @Body Map<String, Object> body);
+
+    @POST("technicians/{id}/services")
+    Call<ApiResponse<com.parkshare.api.models.TechnicianServiceDto>> addTechnicianService(
+            @Path("id") long technicianId, @Body Map<String, String> body);
+
+    @DELETE("technician-services/{id}")
+    Call<ApiResponse<Void>> deleteTechnicianService(@Path("id") long serviceId);
 }
