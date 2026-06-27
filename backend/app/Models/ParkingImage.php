@@ -8,8 +8,17 @@ class ParkingImage extends Model
 {
     protected $fillable = [
         'parking_space_id',
-        'image_url'
+        'image_url',
+        'is_primary',
+        'sort_order',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_primary' => 'boolean',
+        ];
+    }
 
     public function parkingSpace()
     {

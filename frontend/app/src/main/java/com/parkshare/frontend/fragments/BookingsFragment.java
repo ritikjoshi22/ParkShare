@@ -1,5 +1,6 @@
 package com.parkshare.frontend.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +81,18 @@ public class BookingsFragment extends Fragment implements BookingAdapter.OnBooki
     }
 
     @Override
+    public void onViewQr(BookingDto booking) {
+    }
+
+    @Override
+    public void onExtend(BookingDto booking) {
+    }
+
+    @Override
+    public void onPay(BookingDto booking) {
+    }
+
+    @Override
     public void onCancel(BookingDto booking) {
         bookingRepository.cancelBooking(booking.getId(), new RepositoryCallback<BookingDto>() {
             @Override
@@ -93,6 +106,23 @@ public class BookingsFragment extends Fragment implements BookingAdapter.OnBooki
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onChat(BookingDto booking) {
+        Intent intent = new Intent(getContext(), com.parkshare.frontend.activities.ChatActivity.class);
+        intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_BOOKING_ID, booking.getId());
+        intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_NAME,
+            booking.getParkingSpace() != null ? booking.getParkingSpace().getParkingName() : "Chat");
+
+        if (SessionManager.getInstance(requireContext()).isDriver()) {
+            if (booking.getParkingSpace() != null) {
+                intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_RECEIVER_ID, booking.getParkingSpace().getOwnerId());
+            }
+        } else {
+            intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_RECEIVER_ID, booking.getUserId());
+        }
+        startActivity(intent);
     }
 
     @Override

@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class OwnerStatsDto {
     @SerializedName("total_parking_spaces")
-    private int totalParkingSpaces;
+    private long totalParkingSpaces;
 
     @SerializedName("active_bookings")
-    private int activeBookings;
+    private long activeBookings;
 
     @SerializedName("monthly_revenue")
     private double monthlyRevenue;
 
     @SerializedName("available_slots")
-    private int availableSlots;
+    private long availableSlots;
 
     @SerializedName("total_slots")
-    private int totalSlots;
+    private long totalSlots;
 
     @SerializedName("occupancy_rate")
     private double occupancyRate;
@@ -25,13 +25,13 @@ public class OwnerStatsDto {
     private String topParkingName;
 
     @SerializedName("top_parking_bookings")
-    private int topParkingBookings;
+    private long topParkingBookings;
 
-    public int getTotalParkingSpaces() {
+    public long getTotalParkingSpaces() {
         return totalParkingSpaces;
     }
 
-    public int getActiveBookings() {
+    public long getActiveBookings() {
         return activeBookings;
     }
 
@@ -39,7 +39,7 @@ public class OwnerStatsDto {
         return monthlyRevenue;
     }
 
-    public int getAvailableSlots() {
+    public long getAvailableSlots() {
         return availableSlots;
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.parkshare.frontend.databinding.ItemParkingBinding;
 import com.parkshare.frontend.models.Parking;
 
@@ -56,6 +57,14 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
         } else {
             holder.binding.tvStatus.setText("Closed");
             holder.binding.tvStatus.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.holo_red_dark));
+        }
+
+        if (parking.getImageUrl() != null && !parking.getImageUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(parking.getImageUrl())
+                    .centerCrop()
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .into(holder.binding.ivParking);
         }
 
         holder.itemView.setOnClickListener(v -> listener.onParkingClick(parking));

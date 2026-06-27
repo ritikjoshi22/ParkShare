@@ -26,21 +26,23 @@ public final class ParkingMapper {
             distance = String.format(Locale.getDefault(), "%.1f km away", dto.getDistanceKm());
         }
 
-        return new Parking(
+        Parking parking = new Parking(
                 String.valueOf(dto.getId()),
                 dto.getParkingName(),
                 dto.getAddress(),
                 dto.getLatitude(),
                 dto.getLongitude(),
                 dto.getPricePerHour(),
-                dto.getTotalSlots(),
-                dto.getAvailableSlots(),
+                (int) dto.getTotalSlots(),
+                (int) dto.getAvailableSlots(),
                 rating,
                 imageUrl,
                 dto.getDescription() != null ? dto.getDescription() : "",
                 hours,
                 isOpenNow(dto.getOpeningTime(), dto.getClosingTime())
         );
+        parking.setDistance(distance);
+        return parking;
     }
 
     private static String formatHours(String open, String close) {

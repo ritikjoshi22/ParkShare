@@ -12,10 +12,10 @@ public class TechnicianDto {
     private String specialization;
 
     @SerializedName("experience_years")
-    private int experienceYears;
+    private long experienceYears;
 
     @SerializedName("service_radius_km")
-    private int serviceRadiusKm;
+    private long serviceRadiusKm;
 
     @SerializedName("availability_status")
     private String availabilityStatus;
@@ -63,11 +63,11 @@ public class TechnicianDto {
         return hourlyRate;
     }
 
-    public int getExperienceYears() {
+    public long getExperienceYears() {
         return experienceYears;
     }
 
-    public int getServiceRadiusKm() {
+    public long getServiceRadiusKm() {
         return serviceRadiusKm;
     }
 

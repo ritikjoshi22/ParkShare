@@ -11,8 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parkshare.api.models.SosRequestDto;
+import com.parkshare.frontend.R;
 import com.parkshare.frontend.adapters.SosRequestAdapter;
+import com.parkshare.frontend.utils.LoadingHelper;
+import com.parkshare.frontend.utils.ShimmerUi;
 import com.parkshare.frontend.databinding.FragmentTechnicianRequestsBinding;
 import com.parkshare.frontend.repository.SosRepository;
 import com.parkshare.frontend.utils.MapsNavigationHelper;
@@ -25,6 +29,7 @@ public class TechnicianRequestsFragment extends Fragment implements SosRequestAd
     private FragmentTechnicianRequestsBinding binding;
     private SosRequestAdapter adapter;
     private SosRepository sosRepository;
+    private ShimmerFrameLayout shimmerLayout;
 
     @Nullable
     @Override
@@ -41,22 +46,33 @@ public class TechnicianRequestsFragment extends Fragment implements SosRequestAd
         adapter = new SosRequestAdapter(this);
         binding.rvRequests.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvRequests.setAdapter(adapter);
+        shimmerLayout = view.findViewById(R.id.shimmerLayout);
+        ShimmerUi.prepareListSkeleton(view, R.layout.shimmer_booking_item, 5);
+
         binding.swipeRefresh.setOnRefreshListener(this::load);
         load();
     }
 
     private void load() {
+        if (!binding.swipeRefresh.isRefreshing()) {
+            LoadingHelper.showShimmer(shimmerLayout, null);
+            binding.rvRequests.setVisibility(View.INVISIBLE);
+        }
         sosRepository.getRequests(1, "active", new RepositoryCallback<List<SosRequestDto>>() {
             @Override
             public void onSuccess(List<SosRequestDto> data) {
+                LoadingHelper.hideShimmer(shimmerLayout);
                 binding.swipeRefresh.setRefreshing(false);
+                binding.rvRequests.setVisibility(View.VISIBLE);
                 adapter.setItems(data);
                 binding.tvEmpty.setVisibility(data == null || data.isEmpty() ? View.VISIBLE : View.GONE);
             }
 
             @Override
             public void onError(String message) {
+                LoadingHelper.hideShimmer(shimmerLayout);
                 binding.swipeRefresh.setRefreshing(false);
+                binding.rvRequests.setVisibility(View.VISIBLE);
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
             }
         });

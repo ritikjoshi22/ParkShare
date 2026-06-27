@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <!-- Required on Android 11+ to detect / launch Google Maps for external navigation -->
     <queries>
@@ -90,6 +93,32 @@
             android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
+            android:name=".activities.owner.LocationPickerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.owner.OwnerQrScannerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.driver.SlotBookingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.BookingQrActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.BookingPaymentActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
             android:name=".activities.ParkingDetailsActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
@@ -106,6 +135,11 @@
 
         <activity
             android:name=".activities.FavoritesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#3B82F6</color>
+    <color name="primary_variant">#2563EB</color>
+    <color name="secondary">#34D399</color>
+    <color name="secondary_variant">#10B981</color>
+    <color name="accent">#FBBF24</color>
+    <color name="error">#F87171</color>
+    <color name="background">#0F172A</color>
+    <color name="surface">#1E293B</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#0F172A</color>
+    <color name="on_background">#F1F5F9</color>
+    <color name="on_surface">#F1F5F9</color>
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="gray_100">#1E293B</color>
+    <color name="gray_200">#334155</color>
+    <color name="gray_300">#475569</color>
+    <color name="slot_available">#22C55E</color>
+    <color name="slot_occupied">#EF4444</color>
+    <color name="slot_reserved">#3B82F6</color>
+    <color name="slot_maintenance">#64748B</color>
+    <color name="slot_selected">#EAB308</color>
+    <color name="shimmer_base">#334155</color>
+</resources>

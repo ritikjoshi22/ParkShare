@@ -20,6 +20,7 @@ import com.parkshare.frontend.repository.AuthRepository;
 import com.parkshare.frontend.repository.BookingRepository;
 import com.parkshare.frontend.utils.RepositoryCallback;
 import com.parkshare.frontend.utils.SessionManager;
+import com.parkshare.frontend.utils.ThemeManager;
 
 import java.util.List;
 import java.util.Locale;
@@ -49,8 +50,31 @@ public class DriverProfileFragment extends Fragment {
         binding.btnMyBookings.setOnClickListener(v ->
                 androidx.navigation.Navigation.findNavController(view).navigate(R.id.driver_bookings));
         binding.btnLogout.setOnClickListener(v -> logout());
+        binding.btnScanCheckIn.setVisibility(View.GONE);
+        binding.btnScanCheckOut.setVisibility(View.GONE);
+        binding.btnTheme.setOnClickListener(v -> showThemeDialog());
 
         loadStats();
+    }
+
+    private void showThemeDialog() {
+        String[] options = {
+                getString(R.string.theme_system),
+                getString(R.string.theme_light),
+                getString(R.string.theme_dark)
+        };
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle(R.string.appearance)
+                .setItems(options, (d, which) -> {
+                    String mode = ThemeManager.MODE_SYSTEM;
+                    if (which == 1) {
+                        mode = ThemeManager.MODE_LIGHT;
+                    } else if (which == 2) {
+                        mode = ThemeManager.MODE_DARK;
+                    }
+                    ThemeManager.setThemeMode(requireContext(), mode);
+                })
+                .show();
     }
 
     private void loadStats() {

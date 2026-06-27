@@ -100,6 +100,11 @@ class ParkingSpace extends Model
         return $this->hasMany(ParkingAvailability::class);
     }
 
+    public function slots()
+    {
+        return $this->hasMany(ParkingSlot::class)->orderBy('sort_order');
+    }
+
     public function reports()
     {
         return $this->hasMany(Report::class);

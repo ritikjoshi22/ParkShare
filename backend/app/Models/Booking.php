@@ -10,6 +10,7 @@ class Booking extends Model
     protected $fillable = [
         'user_id',
         'parking_space_id',
+        'parking_slot_id',
         'booking_date',
         'start_time',
         'end_time',
@@ -20,6 +21,10 @@ class Booking extends Model
         'checked_in_at',
         'checked_out_at',
         'overtime_fee',
+        'payment_status',
+        'amount_due',
+        'original_end_time',
+        'extended_minutes',
     ];
 
     protected function casts(): array
@@ -31,6 +36,8 @@ class Booking extends Model
             'total_hours' => 'decimal:2',
             'total_amount' => 'decimal:2',
             'overtime_fee' => 'decimal:2',
+            'amount_due' => 'decimal:2',
+            'original_end_time' => 'datetime',
             'checked_in_at' => 'datetime',
             'checked_out_at' => 'datetime',
         ];
@@ -56,8 +63,18 @@ class Booking extends Model
         return $this->belongsTo(ParkingSpace::class);
     }
 
+    public function parkingSlot()
+    {
+        return $this->belongsTo(ParkingSlot::class);
+    }
+
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(BookingPayment::class);
     }
 }

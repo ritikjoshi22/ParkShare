@@ -21,4 +21,12 @@
     <color name="gray_100">#F1F5F9</color>
     <color name="gray_200">#E2E8F0</color>
     <color name="gray_300">#CBD5E1</color>
+
+    <color name="slot_available">#22C55E</color>
+    <color name="slot_occupied">#EF4444</color>
+    <color name="slot_reserved">#3B82F6</color>
+    <color name="slot_maintenance">#94A3B8</color>
+    <color name="slot_selected">#EAB308</color>
+
+    <color name="shimmer_base">#E2E8F0</color>
 </resources>
