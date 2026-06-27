@@ -13,6 +13,8 @@ class ParkingImageResource extends JsonResource
             'id' => $this->id,
             'parking_space_id' => $this->parking_space_id,
             'image_url' => $this->image_url,
+            'is_primary' => (bool) $this->is_primary,
+            'sort_order' => $this->sort_order,
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }

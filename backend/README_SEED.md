@@ -21,6 +21,12 @@ php artisan migrate:fresh --seed
 
 Sample data includes Kathmandu-area parking spaces, bookings, reviews, favorites, SOS history, and notifications.
 
+## After seeding
+
+```bash
+php artisan parkshare:sync-slots   # create per-slot records for existing parking spaces
+```
+
 ## Filament admin panel (web)
 
 After seeding, start the server and open:

@@ -16,7 +16,7 @@ public class NotificationDto {
     private String type;
 
     @SerializedName("is_read")
-    private int read;
+    private boolean read;
 
     @SerializedName("created_at")
     private String createdAt;
@@ -34,7 +34,7 @@ public class NotificationDto {
     }
 
     public boolean isRead() {
-        return read == 1;
+        return read;
     }
 
     public String getCreatedAt() {

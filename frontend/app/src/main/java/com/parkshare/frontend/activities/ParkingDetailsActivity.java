@@ -10,15 +10,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.parkshare.api.models.FavoriteDto;
+import com.parkshare.api.models.ParkingImageDto;
 import com.parkshare.api.models.ParkingSpaceDto;
 import com.parkshare.frontend.R;
+import com.parkshare.frontend.adapters.ParkingImagesAdapter;
 import com.parkshare.frontend.databinding.ActivityParkingDetailsBinding;
 import com.parkshare.frontend.models.Parking;
-import com.parkshare.frontend.repository.BookingRepository;
 import com.parkshare.frontend.repository.FavoriteRepository;
 import com.parkshare.frontend.repository.ParkingRepository;
 import com.parkshare.frontend.repository.ReviewRepository;
+import com.parkshare.frontend.activities.driver.SlotBookingActivity;
 import com.parkshare.frontend.utils.MapsNavigationHelper;
 import com.parkshare.frontend.utils.ParkingMapper;
 import com.parkshare.frontend.utils.RepositoryCallback;
@@ -28,8 +33,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.Marker;
 
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,7 +45,6 @@ public class ParkingDetailsActivity extends AppCompatActivity {
     private long parkingId;
     private Long favoriteId;
     private final ParkingRepository parkingRepository = new ParkingRepository();
-    private final BookingRepository bookingRepository = new BookingRepository();
     private final FavoriteRepository favoriteRepository = new FavoriteRepository();
     private final ReviewRepository reviewRepository = new ReviewRepository();
 
@@ -64,7 +66,12 @@ public class ParkingDetailsActivity extends AppCompatActivity {
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());
         binding.btnNavigate.setOnClickListener(v -> openMaps());
-        binding.btnBook.setOnClickListener(v -> createBooking());
+        binding.btnBook.setOnClickListener(v -> {
+            if (parking != null) {
+                startActivity(new Intent(this, SlotBookingActivity.class)
+                        .putExtra(SlotBookingActivity.EXTRA_PARKING_ID, parkingId));
+            }
+        });
         binding.btnFullMap.setOnClickListener(v -> {
             if (parking != null) {
                 Intent intent = new Intent(this, ParkingMapActivity.class);
@@ -118,11 +125,43 @@ public class ParkingDetailsActivity extends AppCompatActivity {
             binding.tvStatus.setTextColor(getColor(android.R.color.holo_red_dark));
         }
 
-        if (parking.getImageUrl() != null && !parking.getImageUrl().isEmpty()) {
-            Glide.with(this).load(parking.getImageUrl()).into(binding.ivHeader);
-        }
+        setupImageSlider(data.getImages());
 
         binding.btnFavorite.setOnClickListener(v -> toggleFavorite());
+        
+        binding.btnChat.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra(ChatActivity.EXTRA_RECEIVER_ID, data.getOwnerId());
+            intent.putExtra(ChatActivity.EXTRA_NAME, parking.getName());
+            startActivity(intent);
+        });
+    }
+
+    private void setupImageSlider(List<ParkingImageDto> images) {
+        ParkingImagesAdapter adapter = new ParkingImagesAdapter();
+        java.util.List<String> urls = new java.util.ArrayList<>();
+        if (images != null && !images.isEmpty()) {
+            for (ParkingImageDto img : images) {
+                urls.add(img.getImageUrl());
+            }
+        } else if (parking.getImageUrl() != null) {
+            urls.add(parking.getImageUrl());
+        }
+
+        if (urls.isEmpty()) {
+            binding.vpImages.setVisibility(View.GONE);
+            binding.tabDots.setVisibility(View.GONE);
+            return;
+        }
+
+        adapter.setItems(urls);
+        binding.vpImages.setAdapter(adapter);
+        
+        if (urls.size() > 1) {
+            new TabLayoutMediator(binding.tabDots, binding.vpImages, (tab, position) -> {}).attach();
+        } else {
+            binding.tabDots.setVisibility(View.GONE);
+        }
     }
 
     private void setupMap() {
@@ -228,33 +267,6 @@ public class ParkingDetailsActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    private void createBooking() {
-        if (parking.getAvailableSlots() <= 0) {
-            Toast.makeText(this, "No slots available", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        OffsetDateTime start = OffsetDateTime.now().plusHours(1);
-        OffsetDateTime end = start.plusHours(2);
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-
-        binding.btnBook.setEnabled(false);
-        bookingRepository.createBooking(parkingId, start.format(formatter), end.format(formatter),
-                new RepositoryCallback<com.parkshare.api.models.BookingDto>() {
-                    @Override
-                    public void onSuccess(com.parkshare.api.models.BookingDto data) {
-                        binding.btnBook.setEnabled(true);
-                        Toast.makeText(ParkingDetailsActivity.this, R.string.booking_success, Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        binding.btnBook.setEnabled(true);
-                        Toast.makeText(ParkingDetailsActivity.this, message, Toast.LENGTH_LONG).show();
-                    }
-                });
     }
 
     private void openMaps() {

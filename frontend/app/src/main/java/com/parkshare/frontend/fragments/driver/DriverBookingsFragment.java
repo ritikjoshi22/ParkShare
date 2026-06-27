@@ -1,5 +1,6 @@
 package com.parkshare.frontend.fragments.driver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.parkshare.api.models.BookingDto;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parkshare.frontend.R;
+import com.parkshare.api.models.ExtensionOptionsDto;
+import com.parkshare.frontend.activities.BookingPaymentActivity;
+import com.parkshare.frontend.activities.BookingQrActivity;
 import com.parkshare.frontend.adapters.BookingAdapter;
+import com.parkshare.frontend.utils.LoadingHelper;
+import com.parkshare.frontend.utils.ShimmerUi;
 import com.parkshare.frontend.databinding.FragmentDriverBookingsBinding;
 import com.parkshare.frontend.repository.BookingRepository;
 import com.parkshare.frontend.utils.RepositoryCallback;
@@ -27,6 +34,7 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
 
     private FragmentDriverBookingsBinding binding;
     private BookingAdapter adapter;
+    private ShimmerFrameLayout shimmerLayout;
     private List<BookingDto> allBookings = new ArrayList<>();
     private String filterStatus = "active";
 
@@ -41,7 +49,11 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        shimmerLayout = view.findViewById(R.id.shimmerLayout);
+        ShimmerUi.prepareListSkeleton(view, R.layout.shimmer_booking_item, 5);
+
         adapter = new BookingAdapter(this);
+        adapter.setShowQrButton(true);
         binding.rvBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvBookings.setAdapter(adapter);
         binding.btnRetry.setOnClickListener(v -> loadBookings());
@@ -81,19 +93,21 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
     }
 
     private void loadBookings() {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        LoadingHelper.showShimmer(shimmerLayout, binding.progressBar);
         binding.layoutError.setVisibility(View.GONE);
+        binding.rvBookings.setVisibility(View.GONE);
+        binding.layoutEmpty.setVisibility(View.GONE);
         new BookingRepository().getBookings(1, null, new RepositoryCallback<List<BookingDto>>() {
             @Override
             public void onSuccess(List<BookingDto> data) {
-                binding.progressBar.setVisibility(View.GONE);
+                LoadingHelper.hideAll(shimmerLayout, binding.progressBar);
                 allBookings = data != null ? data : new ArrayList<>();
                 applyFilter();
             }
 
             @Override
             public void onError(String message) {
-                binding.progressBar.setVisibility(View.GONE);
+                LoadingHelper.hideAll(shimmerLayout, binding.progressBar);
                 binding.layoutError.setVisibility(View.VISIBLE);
                 binding.tvError.setText(message);
             }
@@ -105,7 +119,7 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
         for (BookingDto b : allBookings) {
             String status = b.getBookingStatus();
             if ("active".equals(filterStatus)) {
-                if ("confirmed".equals(status) || "pending".equals(status)) {
+                if ("confirmed".equals(status) || "pending".equals(status) || "checked_in".equals(status)) {
                     filtered.add(b);
                 }
             } else if (filterStatus.equals(status)
@@ -134,7 +148,7 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
         } else {
             filtered.clear();
             for (BookingDto b : allBookings) {
-                if ("confirmed".equals(b.getBookingStatus())) {
+                if ("confirmed".equals(b.getBookingStatus()) || "checked_in".equals(b.getBookingStatus()) || "pending".equals(b.getBookingStatus())) {
                     filtered.add(b);
                 }
             }
@@ -143,6 +157,52 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
         boolean empty = filtered.isEmpty();
         binding.layoutEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
         binding.rvBookings.setVisibility(empty ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onViewQr(BookingDto booking) {
+        startActivity(BookingQrActivity.intent(requireContext(), booking));
+    }
+
+    @Override
+    public void onExtend(BookingDto booking) {
+        new BookingRepository().getExtensionOptions(booking.getId(), new RepositoryCallback<ExtensionOptionsDto>() {
+            @Override
+            public void onSuccess(ExtensionOptionsDto options) {
+                if (options == null) {
+                    Toast.makeText(requireContext(), "Unable to fetch extension options", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BookingExtensionBottomSheet sheet = BookingExtensionBottomSheet.newInstance(booking, options, () -> {
+                    loadBookings();
+                });
+                sheet.show(getChildFragmentManager(), "extension_sheet");
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void onPay(BookingDto booking) {
+        Intent intent = new Intent(requireContext(), BookingPaymentActivity.class);
+        intent.putExtra(BookingPaymentActivity.EXTRA_BOOKING_ID, booking.getId());
+        intent.putExtra(BookingPaymentActivity.EXTRA_AMOUNT, booking.getAmountDue());
+        intent.putExtra(BookingPaymentActivity.EXTRA_TYPE, "balance");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onChat(BookingDto booking) {
+        if (booking.getParkingSpace() == null) return;
+        Intent intent = new Intent(requireContext(), com.parkshare.frontend.activities.ChatActivity.class);
+        intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_RECEIVER_ID, booking.getParkingSpace().getOwnerId());
+        intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_BOOKING_ID, booking.getId());
+        intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_NAME, booking.getParkingSpace().getParkingName());
+        startActivity(intent);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class ReviewDto {
     private long id;
 
     @SerializedName("rating")
-    private int rating;
+    private long rating;
 
     @SerializedName("review_text")
     private String reviewText;
@@ -18,7 +18,7 @@ public class ReviewDto {
     @SerializedName("created_at")
     private String createdAt;
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 

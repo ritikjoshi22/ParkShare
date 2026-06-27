@@ -4,23 +4,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class PaginationMeta {
     @SerializedName("current_page")
-    private int currentPage;
+    private long currentPage;
 
     @SerializedName("last_page")
-    private int lastPage;
+    private long lastPage;
 
     @SerializedName("per_page")
-    private int perPage;
+    private long perPage;
 
     @SerializedName("total")
-    private int total;
+    private long total;
 
-    public int getCurrentPage() {
+    public long getCurrentPage() {
         return currentPage;
     }
 
-    public int getLastPage() {
+    public long getLastPage() {
         return lastPage;
+    }
+
+    public long getTotal() {
+        return total;
     }
 
     public boolean hasMorePages() {

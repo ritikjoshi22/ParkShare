@@ -6,11 +6,16 @@ use App\Http\Requests\Parking\StoreParkingSpaceRequest;
 use App\Http\Requests\Parking\UpdateParkingSpaceRequest;
 use App\Http\Resources\ParkingSpaceResource;
 use App\Models\ParkingSpace;
+use App\Services\ParkingSlotService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ParkingSpaceController extends ApiController
 {
+    public function __construct(
+        protected ParkingSlotService $slotService
+    ) {}
+
     public function index(Request $request): JsonResponse
     {
         $this->authorize('viewAny', ParkingSpace::class);
@@ -55,6 +60,8 @@ class ParkingSpaceController extends ApiController
             'is_verified' => $request->user()->isAdmin(),
         ]);
 
+        $this->slotService->syncSlots($space);
+
         return $this->success(
             new ParkingSpaceResource($space->load('images', 'owner')),
             'Parking space created.',
@@ -77,6 +84,7 @@ class ParkingSpaceController extends ApiController
         $this->authorize('update', $parkingSpace);
 
         $parkingSpace->update($request->validated());
+        $this->slotService->syncSlots($parkingSpace->fresh());
 
         return $this->success(
             new ParkingSpaceResource($parkingSpace->fresh()->load('images', 'owner')),

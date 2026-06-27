@@ -15,6 +15,7 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             'parking_space_id' => ['required', 'integer', 'exists:parking_spaces,id'],
+            'parking_slot_id' => ['nullable', 'integer', 'exists:parking_slots,id'],
             'start_time' => ['required', 'date', 'after:now'],
             'end_time' => ['required', 'date', 'after:start_time'],
         ];
