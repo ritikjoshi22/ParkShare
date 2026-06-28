@@ -19,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.parkshare.api.models.ParkingSpaceDto;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parkshare.frontend.R;
+import com.parkshare.frontend.utils.LoadingHelper;
+import com.parkshare.frontend.utils.ShimmerUi;
 import com.parkshare.frontend.activities.FavoritesActivity;
 import com.parkshare.frontend.activities.ParkingDetailsActivity;
 import com.parkshare.frontend.activities.ParkingMapActivity;
@@ -43,6 +46,7 @@ public class DriverHomeFragment extends Fragment implements ParkingAdapter.OnPar
     private ParkingRepository parkingRepository;
     private double userLat = 27.7172;
     private double userLng = 85.3240;
+    private ShimmerFrameLayout shimmerLayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +83,9 @@ public class DriverHomeFragment extends Fragment implements ParkingAdapter.OnPar
             }
         });
 
+        shimmerLayout = view.findViewById(R.id.shimmerLayout);
+        ShimmerUi.prepareListSkeleton(view, R.layout.shimmer_parking_item, 4);
+
         binding.swipeRefresh.setOnRefreshListener(this::loadParkingData);
         binding.btnRetry.setOnClickListener(v -> loadParkingData());
         binding.btnOpenMap.setOnClickListener(v -> {
@@ -96,12 +103,14 @@ public class DriverHomeFragment extends Fragment implements ParkingAdapter.OnPar
     private void loadParkingData() {
         binding.layoutError.setVisibility(View.GONE);
         if (!binding.swipeRefresh.isRefreshing()) {
-            binding.progressBar.setVisibility(View.VISIBLE);
+            LoadingHelper.showShimmer(shimmerLayout, binding.progressBar);
+            binding.swipeRefresh.setVisibility(View.INVISIBLE);
         }
         parkingRepository.getNearby(userLat, userLng, 1, new RepositoryCallback<List<ParkingSpaceDto>>() {
             @Override
             public void onSuccess(List<ParkingSpaceDto> data) {
-                binding.progressBar.setVisibility(View.GONE);
+                LoadingHelper.hideAll(shimmerLayout, binding.progressBar);
+                binding.swipeRefresh.setVisibility(View.VISIBLE);
                 binding.swipeRefresh.setRefreshing(false);
                 allParkingList.clear();
                 if (data != null) {
@@ -126,7 +135,8 @@ public class DriverHomeFragment extends Fragment implements ParkingAdapter.OnPar
 
             @Override
             public void onError(String message) {
-                binding.progressBar.setVisibility(View.GONE);
+                LoadingHelper.hideAll(shimmerLayout, binding.progressBar);
+                binding.swipeRefresh.setVisibility(View.VISIBLE);
                 binding.swipeRefresh.setRefreshing(false);
                 binding.layoutError.setVisibility(View.VISIBLE);
                 binding.tvError.setText(message);
@@ -177,9 +187,13 @@ public class DriverHomeFragment extends Fragment implements ParkingAdapter.OnPar
 
     @Override
     public void onParkingClick(Parking parking) {
-        Intent intent = new Intent(getContext(), ParkingDetailsActivity.class);
-        intent.putExtra(ParkingDetailsActivity.EXTRA_PARKING_ID, Long.parseLong(parking.getId()));
-        startActivity(intent);
+        try {
+            long id = Long.parseLong(parking.getId());
+            Intent intent = new Intent(getContext(), ParkingDetailsActivity.class);
+            intent.putExtra(ParkingDetailsActivity.EXTRA_PARKING_ID, id);
+            startActivity(intent);
+        } catch (NumberFormatException ignored) {
+        }
     }
 
     @Override

@@ -13,10 +13,6 @@
         android:icon="@android:drawable/ic_menu_help"
         android:title="@string/title_sos" />
     <item
-        android:id="@+id/driver_notifications"
-        android:icon="@android:drawable/ic_popup_reminder"
-        android:title="@string/notifications" />
-    <item
         android:id="@+id/driver_profile"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/title_profile" />

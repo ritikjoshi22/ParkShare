@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Emulator: 10.0.2.2 → host machine. Physical device: use your PC LAN IP.
-        buildConfigField("String", "API_BASE_URL", "\"http://192.168.1.2:8000/api/v1/\"")
+        buildConfigField("String", "API_BASE_URL", "\"http://192.168.1.6:8000/api/v1/\"")
     }
 
     buildTypes {
@@ -33,6 +33,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
@@ -49,6 +50,7 @@ java {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
@@ -63,7 +65,11 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
     implementation(libs.glide)
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.google.zxing:core:3.5.3")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation(libs.swiperefresh)
+    implementation(libs.stripe)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)

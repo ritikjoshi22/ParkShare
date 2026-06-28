@@ -27,13 +27,16 @@ public class ParkingSpaceDto {
     private double pricePerHour;
 
     @SerializedName("total_slots")
-    private int totalSlots;
+    private long totalSlots;
 
     @SerializedName("available_slots")
-    private int availableSlots;
+    private long availableSlots;
 
     @SerializedName("vehicle_type")
     private String vehicleType;
+
+    @SerializedName("owner_id")
+    private long ownerId;
 
     @SerializedName("opening_time")
     private String openingTime;
@@ -84,11 +87,11 @@ public class ParkingSpaceDto {
         return pricePerHour;
     }
 
-    public int getTotalSlots() {
+    public long getTotalSlots() {
         return totalSlots;
     }
 
-    public int getAvailableSlots() {
+    public long getAvailableSlots() {
         return availableSlots;
     }
 
@@ -110,5 +113,9 @@ public class ParkingSpaceDto {
 
     public Double getReviewsAvgRating() {
         return reviewsAvgRating;
+    }
+
+    public long getOwnerId() {
+        return ownerId;
     }
 }

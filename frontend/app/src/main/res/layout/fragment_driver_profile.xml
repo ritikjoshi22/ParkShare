@@ -104,11 +104,35 @@
             android:text="@string/favorites" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnScanCheckIn"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/scan_check_in" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnScanCheckOut"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/scan_check_out" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTheme"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/appearance" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:text="@string/logout"
             android:textColor="@color/error" />
     </LinearLayout>

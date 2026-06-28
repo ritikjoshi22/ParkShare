@@ -24,7 +24,7 @@ class OwnerStatsController extends ApiController
         $totalSlots = ParkingSpace::whereIn('id', $parkingIds)->sum('total_slots');
 
         $activeBookings = Booking::whereIn('parking_space_id', $parkingIds)
-            ->whereIn('booking_status', ['pending', 'confirmed'])
+            ->whereIn('booking_status', ['pending', 'confirmed', 'checked_in'])
             ->count();
 
         $monthlyRevenue = Booking::whereIn('parking_space_id', $parkingIds)

@@ -67,6 +67,13 @@ public interface ApiService {
     @DELETE("parking-spaces/{id}")
     Call<ApiResponse<Void>> deleteParkingSpace(@Path("id") long id);
 
+    @retrofit2.http.Multipart
+    @POST("parking-spaces/{id}/images/batch")
+    Call<ApiResponse<java.util.List<com.parkshare.api.models.ParkingImageDto>>> uploadParkingImagesBatch(
+            @Path("id") long id,
+            @retrofit2.http.Part java.util.List<okhttp3.MultipartBody.Part> images
+    );
+
     @GET("owner/stats")
     Call<ApiResponse<com.parkshare.api.models.OwnerStatsDto>> ownerStats();
 
@@ -88,6 +95,38 @@ public interface ApiService {
 
     @POST("bookings/{id}/cancel")
     Call<ApiResponse<BookingDto>> cancelBooking(@Path("id") long id);
+
+    @GET("bookings/{id}")
+    Call<ApiResponse<BookingDto>> booking(@Path("id") long id);
+
+    @POST("bookings/scan")
+    Call<ApiResponse<com.parkshare.api.models.BookingScanResultDto>> scanBookingQr(@Body Map<String, String> body);
+
+    @POST("bookings/quote")
+    Call<ApiResponse<com.parkshare.api.models.BookingQuoteDto>> quoteBooking(@Body Map<String, Object> body);
+
+    @GET("bookings/active")
+    Call<ApiResponse<BookingDto>> activeBooking();
+
+    @GET("bookings/{id}/extension-options")
+    Call<ApiResponse<com.parkshare.api.models.ExtensionOptionsDto>> extensionOptions(@Path("id") long id);
+
+    @POST("bookings/{id}/extend")
+    Call<ApiResponse<BookingDto>> extendBooking(@Path("id") long id, @Body Map<String, Object> body);
+
+    @POST("bookings/{id}/payment-intent")
+    Call<ApiResponse<com.parkshare.api.models.PaymentIntentDto>> createPaymentIntent(
+            @Path("id") long id, @Body Map<String, String> body);
+
+    @POST("bookings/{id}/confirm-payment")
+    Call<ApiResponse<BookingDto>> confirmPayment(@Path("id") long id, @Body Map<String, String> body);
+
+    @GET("parking-spaces/{id}/slots")
+    Call<ApiResponse<List<com.parkshare.api.models.ParkingSlotDto>>> parkingSlots(
+            @Path("id") long parkingSpaceId,
+            @Query("start_time") String startTime,
+            @Query("end_time") String endTime
+    );
 
     @GET("sos-requests")
     Call<ApiResponse<List<SosRequestDto>>> sosRequests(
@@ -150,6 +189,16 @@ public interface ApiService {
 
     @POST("notifications/read-all")
     Call<ApiResponse<Void>> markAllNotificationsRead();
+
+    // Chat
+    @GET("chat/conversations")
+    Call<ApiResponse<List<com.parkshare.api.models.MessageDto>>> conversations();
+
+    @GET("chat/messages/{bookingId}")
+    Call<ApiResponse<List<com.parkshare.api.models.MessageDto>>> messages(@Path("bookingId") long bookingId);
+
+    @POST("chat/send")
+    Call<ApiResponse<com.parkshare.api.models.MessageDto>> sendMessage(@Body Map<String, Object> body);
 
     @PUT("technicians/{id}")
     Call<ApiResponse<TechnicianDto>> updateTechnician(@Path("id") long id, @Body Map<String, Object> body);

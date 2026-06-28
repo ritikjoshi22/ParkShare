@@ -16,6 +16,8 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <include layout="@layout/include_shimmer_list" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
@@ -23,7 +25,17 @@
                 android:layout_gravity="center_horizontal"
                 android:visibility="gone" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnScanQr"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/scan_driver_qr"
+                app:icon="@drawable/ic_qr_scan"
+                app:iconGravity="textStart" />
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"

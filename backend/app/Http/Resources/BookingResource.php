@@ -20,11 +20,18 @@ class BookingResource extends JsonResource
             'total_amount' => $this->total_amount,
             'booking_status' => $this->booking_status,
             'qr_code' => $this->qr_code,
+            'check_in_status' => app(\App\Services\BookingQrService::class)->resolveCheckInStatus($this->resource),
+            'parking_slot_id' => $this->parking_slot_id,
             'checked_in_at' => $this->checked_in_at?->toIso8601String(),
             'checked_out_at' => $this->checked_out_at?->toIso8601String(),
             'overtime_fee' => $this->overtime_fee,
+            'payment_status' => $this->payment_status,
+            'amount_due' => $this->amount_due,
+            'original_end_time' => $this->original_end_time?->toIso8601String(),
+            'extended_minutes' => $this->extended_minutes,
             'user' => UserResource::make($this->whenLoaded('user')),
             'parking_space' => ParkingSpaceResource::make($this->whenLoaded('parkingSpace')),
+            'parking_slot' => ParkingSlotResource::make($this->whenLoaded('parkingSlot')),
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }
