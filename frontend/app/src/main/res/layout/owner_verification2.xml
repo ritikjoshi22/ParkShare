@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7FB">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:tint="#1a1c1e"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Property Verification"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#1a1c1e"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+    </LinearLayout>
+
+    <!-- STEP INFO -->
+    <LinearLayout
+        android:id="@+id/stepRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:text="Step 2 of 4"
+            android:textColor="#1e40ff"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:text="50% Complete"
+            android:textColor="#6f7a6e"/>
+    </LinearLayout>
+
+    <!-- PROGRESS BAR -->
+    <FrameLayout
+        android:id="@+id/progressBg"
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_margin="16dp"
+        android:background="#E6E6E9"
+        app:layout_constraintTop_toBottomOf="@id/stepRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:layout_width="50%"
+            android:layout_height="match_parent"
+            android:background="#1e40ff"/>
+    </FrameLayout>
+
+    <!-- TITLE -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Legal & Location"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1a1c1e"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/progressBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Verify your property ownership to start listing your space on ParkIN."
+        android:textColor="#6f7a6e"
+        android:textSize="14sp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- SCROLL -->
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/subtitle"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- LALPURJA CARD -->
+            <TextView
+                android:text="Ownership Certificate (Lalpurja)"
+                android:textStyle="bold"
+                android:textColor="#1a1c1e"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@android:drawable/ic_menu_upload"
+                    android:tint="#1e40ff"/>
+
+                <TextView
+                    android:text="Tap to upload Lalpurja"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:text="JPG, PNG or PDF (Max 5MB)"
+                    android:textSize="12sp"
+                    android:textColor="#6f7a6e"/>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to upload LalPurja" />
+            </LinearLayout>
+
+            <!-- TAX RECEIPT -->
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="Latest Property Tax Receipt"
+                android:textStyle="bold"
+                android:textColor="#1a1c1e"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    android:tint="#6f7a6e"/>
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap to upload tax receipt" />
+
+                <TextView
+                    android:text="Upload Tax Receipt"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:text="Must be from current fiscal year"
+                    android:textSize="12sp"
+                    android:textColor="#6f7a6e"/>
+            </LinearLayout>
+
+            <!-- MAP -->
+            <TextView
+                android:layout_marginTop="18dp"
+                android:text="Set Property Location"
+                android:textStyle="bold"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="10dp"
+                android:background="#E8E8EA">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DADADC"/>
+
+                <!-- PIN -->
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="📍"
+                    android:textSize="34sp"/>
+            </FrameLayout>
+
+            <!-- INFO BOX -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:background="#F1F5F9"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="ℹ"
+                    android:textSize="18sp"
+                    android:textColor="#1e40ff"
+                    android:paddingEnd="8dp"/>
+
+                <TextView
+                    android:text="Dragging the pin helps drivers find your location easier."
+                    android:textColor="#6f7a6e"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- TIP CARD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#E5E7EB"
+                android:padding="14dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="Verification Tip"
+                        android:textStyle="bold"
+                        android:textColor="#1a1c1e"/>
+
+                    <TextView
+                        android:text="Ensure Lalpurja matches Citizenship ID."
+                        android:textSize="12sp"
+                        android:textColor="#6f7a6e"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#D1D5DB"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTTOM BAR -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Save Draft"
+            android:textColor="#111827"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Continue"
+            android:textColor="#ffffff"
+            android:background="#1e40ff"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
