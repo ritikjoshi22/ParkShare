@@ -8,12 +8,12 @@
 
     <!-- TOP BAR -->
     <com.google.android.material.appbar.MaterialToolbar
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:subtitle="Instant roadside support"
         app:title="Emergency Assistance"
-        app:titleTextColor="@color/primary"
-        app:subtitle="Instant roadside support"/>
+        app:titleTextColor="@color/primary" />
 
     <!-- CONTENT -->
     <ScrollView
@@ -233,27 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#EEF4FF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:text="Safety Checklist"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_marginTop="8dp"
-                        android:text="✔ Hazard lights ON\n✔ Stay inside vehicle\n✔ Verify technician ID"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                app:cardBackgroundColor="#EEF4FF"/>
 
         </LinearLayout>
     </ScrollView>
