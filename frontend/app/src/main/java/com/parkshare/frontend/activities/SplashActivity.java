@@ -1,15 +1,10 @@
-package com.parkshare.frontend.activities;
+package com.example.parkshare;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.parkshare.frontend.R;
-import com.parkshare.frontend.utils.RoleRouter;
-import com.parkshare.frontend.utils.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,15 +13,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        SessionManager sessionManager = SessionManager.getInstance(this);
-
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if (sessionManager.isLoggedIn()) {
-                RoleRouter.openDashboard(SplashActivity.this);
-            } else {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-            }
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
             finish();
-        }, 1500);
+        }, 2500); // 2.5 seconds
     }
 }
