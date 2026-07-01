@@ -1,10 +1,12 @@
-package com.example.parkshare;
+package com.parkshare.frontend.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.parkshare.frontend.R;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -12,15 +12,13 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- ICON -->
         <ImageView
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_parking"
+            android:src="@drawable/ic_parking_logo"
             android:contentDescription="logo" />
 
-        <!-- APP NAME -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,34 +29,32 @@
             android:layout_gravity="center"
             android:layout_marginTop="12dp"/>
 
-        <!-- TITLE -->
-
-        <!-- SUBTITLE -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Welcome Back"
+            android:text="Create Account"
             android:textColor="@color/text_primary"
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login to continue parking management"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="6dp"/>
-
-        <!-- EMAIL -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="Email">
+            android:hint="Full Name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Email">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
@@ -66,14 +62,24 @@
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- PASSWORD -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Phone Number">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Password"
             app:endIconMode="password_toggle">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
@@ -81,64 +87,40 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- LOGIN BUTTON -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Confirm Password"
+            app:endIconMode="password_toggle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="LOGIN"
+            android:text="REGISTER"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             app:cornerRadius="12dp"
             app:backgroundTint="@color/primary"/>
 
-        <!-- DIVIDER -->
         <TextView
+            android:id="@+id/tvLoginRedirect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OR"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/text_secondary"/>
-
-        <!-- SOCIAL BUTTONS -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:weightSum="2">
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Google"
-                android:textAllCaps="false"
-                app:icon="@drawable/ic_google"
-                app:cornerRadius="12dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Apple"
-                android:textAllCaps="false"
-                android:layout_marginStart="10dp"
-                app:icon="@drawable/ic_apple"
-                app:cornerRadius="12dp"/>
-        </LinearLayout>
-
-        <!-- SIGNUP -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account? Request Access"
+            android:text="Already have an account? Login"
             android:textColor="@color/text_secondary"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>

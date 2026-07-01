@@ -367,9 +367,8 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Logout Button -->
-            <!-- Settings -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardSettings"
+                android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

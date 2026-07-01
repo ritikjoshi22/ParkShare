@@ -29,4 +29,5 @@
     <color name="slot_selected">#EAB308</color>
 
     <color name="shimmer_base">#E2E8F0</color>
+    <color name="outline_variant">#E2E8F0</color>
 </resources>
