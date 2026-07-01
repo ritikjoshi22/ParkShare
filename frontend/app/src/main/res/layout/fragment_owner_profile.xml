@@ -10,12 +10,11 @@
 
     <!-- TopAppBar -->
 
-    <!-- ScrollView for main content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="907dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingBottom="80dp">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -421,6 +420,6 @@
         layout="@layout/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </LinearLayout>

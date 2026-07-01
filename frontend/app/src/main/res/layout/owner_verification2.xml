@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F8F9FA"
     tools:ignore="HardcodedText">
 
     <!-- Header -->
@@ -14,14 +14,15 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="20dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:contentDescription="Back"
+            android:padding="2dp"
             android:src="@android:drawable/ic_menu_revert"
             app:tint="#1A1C1E" />
 
@@ -37,8 +38,8 @@
             android:textStyle="bold" />
 
         <View
-            android:layout_width="24dp"
-            android:layout_height="24dp" />
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
     </LinearLayout>
 
     <!-- Progress Section -->
@@ -47,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="24dp"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <LinearLayout
@@ -62,7 +63,7 @@
                 android:layout_weight="1"
                 android:text="Step 2 of 4"
                 android:textColor="#1E40FF"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -70,20 +71,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="50% Complete"
-                android:textColor="#5F6368"
-                android:textSize="12sp" />
+                android:textColor="#6F7A6E"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="10dp"
             android:max="100"
             android:progress="50"
             android:progressTint="#1E40FF"
-            android:backgroundTint="#E8EAED" />
+            android:backgroundTint="#E2E2E5" />
     </LinearLayout>
 
     <ScrollView
@@ -91,6 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/bottomButtons"
         app:layout_constraintTop_toBottomOf="@id/progressSection">
 
@@ -98,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <TextView
                 android:id="@+id/textTitle"
@@ -106,23 +108,24 @@
                 android:layout_height="wrap_content"
                 android:text="Legal &amp; Location"
                 android:textColor="#1A1C1E"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="4dp"
                 android:text="Verify your property ownership to start listing your space on ParkIN."
-                android:textColor="#5F6368"
-                android:textSize="14sp" />
+                android:textColor="#6F7A6E"
+                android:textSize="15sp" />
 
             <!-- Lalpurja Upload -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
@@ -131,55 +134,65 @@
                     android:layout_height="wrap_content"
                     android:text="Ownership Certificate (Lalpurja)"
                     android:textColor="#1A1C1E"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="6dp"
                     android:src="@android:drawable/checkbox_on_background"
                     app:tint="#1E40FF" />
             </LinearLayout>
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnUploadLalpurja"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_dashed_border"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="140dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#DADCE0"
+                app:strokeWidth="1dp">
 
-                <FrameLayout
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_circle_blue">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_dashed_border"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@android:drawable/stat_sys_upload"
-                        app:tint="#FFFFFF" />
-                </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_blue">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Tap to upload Lalpurja"
-                    android:textColor="#1A1C1E"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/stat_sys_upload"
+                            app:tint="#FFFFFF" />
+                    </FrameLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="JPG, PNG or PDF (Max 5MB)"
-                    android:textColor="#5F6368"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Tap to upload Lalpurja"
+                        android:textColor="#1A1C1E"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="JPG, PNG or PDF (Max 5MB)"
+                        android:textColor="#6F7A6E"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Tax Receipt Upload -->
             <TextView
@@ -188,82 +201,93 @@
                 android:layout_marginTop="24dp"
                 android:text="Latest Property Tax Receipt"
                 android:textColor="#1A1C1E"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnUploadTaxReceipt"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_dashed_border"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="140dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#DADCE0"
+                app:strokeWidth="1dp">
 
-                <FrameLayout
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_circle_gray">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_dashed_border"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@android:drawable/ic_menu_agenda"
-                        app:tint="#5F6368" />
-                </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_circle_gray">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Upload Tax Receipt"
-                    android:textColor="#1A1C1E"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            app:tint="#6F7A6E" />
+                    </FrameLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Must be from the current fiscal year"
-                    android:textColor="#5F6368"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Upload Tax Receipt"
+                        android:textColor="#1A1C1E"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Must be from current fiscal year"
+                        android:textColor="#6F7A6E"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Location Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Set Property Location"
                 android:textColor="#1A1C1E"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <!-- Map Placeholder -->
                     <ImageView
                         android:id="@+id/imgMap"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="Map Location"
                         android:scaleType="centerCrop"
                         android:src="@android:drawable/ic_menu_gallery"
-                        android:alpha="0.2" />
+                        android:alpha="0.3" />
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_gravity="center"
+                        android:contentDescription="Pin"
                         android:src="@android:drawable/ic_dialog_map"
                         app:tint="#1E40FF" />
 
@@ -277,25 +301,27 @@
                         android:text="Current Location"
                         android:textAllCaps="false"
                         android:textColor="#1A1C1E"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         app:cornerRadius="24dp"
                         app:icon="@android:drawable/ic_menu_mylocation"
-                        app:iconSize="16dp"
+                        app:iconSize="18dp"
                         app:iconTint="#1A1C1E"
                         app:strokeColor="#E0E0E0"
                         app:strokeWidth="1dp" />
                 </FrameLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:background="#F0F4FF"
+                android:padding="12dp">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginTop="2dp"
                     android:src="@android:drawable/ic_dialog_info"
                     app:tint="#1E40FF" />
@@ -303,52 +329,64 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="10dp"
                     android:text="Dragging the pin precisely to your property entrance helps drivers find you easier."
-                    android:textColor="#5F6368"
-                    android:textSize="12sp" />
+                    android:textColor="#3C4043"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"/>
             </LinearLayout>
 
             <!-- Verification Tip Card -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardVerificationTip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_light_gray_card"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#F1F3F4">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Verification Tip"
-                        android:textColor="#1A1C1E"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Ensure the name on your Lalpurja matches the Citizenship ID provided in Step 1."
-                        android:textColor="#5F6368"
-                        android:textSize="12sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Verification Tip"
+                            android:textColor="#1A1C1E"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:lineSpacingExtra="3dp"
+                            android:text="Ensure the name on your Lalpurja matches the Citizenship ID provided in Step 1."
+                            android:textColor="#6F7A6E"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="Tip Image"
+                        android:src="@android:drawable/ic_menu_gallery"
+                        android:alpha="0.4" />
                 </LinearLayout>
-
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@android:drawable/ic_menu_gallery"
-                    android:alpha="0.3" />
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
@@ -359,33 +397,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
+        android:elevation="8dp"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveDraft"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="12dp"
             android:layout_weight="1"
             android:backgroundTint="#F1F3F4"
             android:text="Save Draft"
             android:textAllCaps="false"
             android:textColor="#3C4043"
-            app:cornerRadius="8dp" />
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinue"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="2"
+            android:layout_height="58dp"
+            android:layout_weight="1.8"
             android:backgroundTint="#1E40FF"
             android:text="Continue"
             android:textAllCaps="false"
-            app:cornerRadius="8dp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
