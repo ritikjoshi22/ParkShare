@@ -44,12 +44,14 @@ android {
 
     sourceSets {
         getByName("main") {
-            res.srcDirs(
-                "src/main/res/layouts/driver",
-                "src/main/res/layouts/owner",
-                "src/main/res/layouts/technician",
-                "src/main/res/layouts/common",
-                "src/main/res"
+            res.setSrcDirs(
+                listOf(
+                    "src/main/res/layouts/driver",
+                    "src/main/res/layouts/owner",
+                    "src/main/res/layouts/technician",
+                    "src/main/res/layouts/common",
+                    "src/main/res"
+                )
             )
         }
     }
