@@ -220,4 +220,68 @@
     <string name="extending">Extending...</string>
     <string name="not_available">Not Available</string>
     <string name="max_available_time_exceeded">Selected duration exceeds maximum available time</string>
+
+    <!-- Owner Verification -->
+    <string name="owner_verification_title">Owner Verification</string>
+    <string name="step_1_of_4">Step 1 of 4</string>
+    <string name="confirm_identity">Confirm your identity</string>
+    <string name="verification_desc">To start hosting your space on ParkShare, we need to verify your credentials for security and trust.</string>
+    <string name="identification_details">Identification Details</string>
+    <string name="pan_number">PAN Number</string>
+    <string name="pan_hint">Enter your 10-digit Permanent Account Number</string>
+    <string name="upload_documents">Upload Documents</string>
+    <string name="citizenship_front">Citizenship (Front)</string>
+    <string name="citizenship_back">Citizenship (Back)</string>
+    <string name="driving_license_label">Driving License</string>
+    <string name="tap_to_upload">Tap to upload or take photo</string>
+    <string name="selfie_verification">Selfie Verification</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="verification_consent">I confirm that all provided information is accurate and I agree to the verification terms.</string>
+    <string name="save_draft">Save Draft</string>
+    <string name="continue_label">Continue</string>
+
+    <!-- Owner Verification Step 2 -->
+    <string name="step_2_of_4">Step 2 of 4</string>
+    <string name="legal_location_title">Legal &amp; Location</string>
+    <string name="legal_location_desc">Verify your property ownership to start listing your space on ParkShare.</string>
+    <string name="lalpurja_label">Ownership Certificate (Lalpurja)</string>
+    <string name="tax_receipt_label">Latest Property Tax Receipt</string>
+    <string name="tax_receipt_hint">Must be from current fiscal year</string>
+    <string name="set_property_location">Set Property Location</string>
+    <string name="upload_lalpurja">Upload Lalpurja</string>
+    <string name="upload_tax_receipt">Upload Tax Receipt</string>
+    <string name="file_types_limit">JPG, PNG or PDF (Max 5MB)</string>
+    <string name="location_tip">Dragging the pin precisely to your property entrance helps drivers find you easier.</string>
+    <string name="verification_tip_title">Verification Tip</string>
+    <string name="verification_tip_desc">Ensure the name on your Lalpurja matches the Citizenship ID provided in Step 1.</string>
+
+    <!-- Owner Verification Step 3 -->
+    <string name="step_3_of_4">Step 3 of 4</string>
+    <string name="security_verification_title">Security Verification</string>
+    <string name="security_verification_desc">To verify your parking space, please upload clear photos of the entry points and safety equipment. This helps users feel secure when booking.</string>
+    <string name="entry_gate_label">Entry Gate</string>
+    <string name="entry_gate_desc">Includes the entry mechanism or street entrance clearly.</string>
+    <string name="front_view_label">Front View</string>
+    <string name="back_view_label">Back View</string>
+    <string name="left_view_label">Left View</string>
+    <string name="right_view_label">Right View</string>
+    <string name="cctv_view_label">CCTV View</string>
+    <string name="safety_gear_label">Safety Gear</string>
+    <string name="owner_photo_label">Owner Photo</string>
+    <string name="owner_photo_desc">A selfie in the location for physical access.</string>
+    <string name="privacy_security_title">Privacy &amp; Security</string>
+    <string name="privacy_security_desc">Your photos are stored on secured servers and only used for internal verification purposes.</string>
+    <string name="continue_final_step">Continue to Final Step</string>
+
+    <!-- Owner Verification Step 4 -->
+    <string name="step_4_of_4">Step 4 of 4</string>
+    <string name="parking_features_title">Parking Features</string>
+    <string name="parking_features_desc">Select all amenities available at your parking spot to help drivers find exactly what they need.</string>
+    <string name="banner_title">Highlight your space\'s best assets</string>
+    <string name="banner_desc">Listings with more features get 40% more bookings.</string>
+    <string name="covered_parking_label">Covered</string>
+    <string name="cctv_label">CCTV</string>
+    <string name="security_guard_label">Security Guard</string>
+    <string name="lighting_label">EV Charging</string>
+    <string name="verify_publish">Verify &amp; Publish</string>
 </resources>
