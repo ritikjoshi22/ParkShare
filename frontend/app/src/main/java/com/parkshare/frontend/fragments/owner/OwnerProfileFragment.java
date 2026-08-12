@@ -36,7 +36,7 @@ public class OwnerProfileFragment extends Fragment {
         binding.tvName.setText(session.getFullName());
         binding.tvEmail.setText(session.getEmail());
         binding.tvPhone.setText(session.getPhone());
-        binding.btnLogout.setOnClickListener(v ->
+        binding.cardLogout.setOnClickListener(v ->
                 new AuthRepository(session).logout(new RepositoryCallback<Void>() {
                     @Override
                     public void onSuccess(Void data) {

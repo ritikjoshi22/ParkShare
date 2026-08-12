@@ -42,12 +42,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend">
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activities.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
             android:name=".activities.LoginActivity"
@@ -106,12 +112,22 @@
             android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
+            android:name=".activities.driver.ParkingSlotSelectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
             android:name=".activities.BookingQrActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
             android:name=".activities.BookingPaymentActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.ParkingReviewActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 

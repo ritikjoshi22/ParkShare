@@ -17,9 +17,16 @@ import com.google.android.material.tabs.TabLayout;
 import com.parkshare.api.models.BookingDto;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.parkshare.frontend.R;
+import com.bumptech.glide.Glide;
+import com.parkshare.api.models.NotificationDto;
+import com.parkshare.api.models.UserDto;
+import com.parkshare.frontend.repository.AuthRepository;
+import com.parkshare.frontend.repository.NotificationRepository;
 import com.parkshare.api.models.ExtensionOptionsDto;
+import com.parkshare.frontend.utils.SessionManager;
 import com.parkshare.frontend.activities.BookingPaymentActivity;
 import com.parkshare.frontend.activities.BookingQrActivity;
+import com.parkshare.frontend.activities.ParkingReviewActivity;
 import com.parkshare.frontend.adapters.BookingAdapter;
 import com.parkshare.frontend.utils.LoadingHelper;
 import com.parkshare.frontend.utils.ShimmerUi;
@@ -37,6 +44,8 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
     private ShimmerFrameLayout shimmerLayout;
     private List<BookingDto> allBookings = new ArrayList<>();
     private String filterStatus = "active";
+    private final NotificationRepository notificationRepository = new NotificationRepository();
+    private AuthRepository authRepository;
 
     @Nullable
     @Override
@@ -49,6 +58,8 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        authRepository = new AuthRepository(SessionManager.getInstance(requireContext()));
+
         shimmerLayout = view.findViewById(R.id.shimmerLayout);
         ShimmerUi.prepareListSkeleton(view, R.layout.shimmer_booking_item, 5);
 
@@ -92,11 +103,50 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
         loadBookings();
     }
 
+    private void updateNotificationBadge() {
+        notificationRepository.getNotifications(1, true, new RepositoryCallback<List<NotificationDto>>() {
+            @Override
+            public void onSuccess(List<NotificationDto> data) {
+                if (isAdded() && binding != null) {
+                    if (data != null && !data.isEmpty()) {
+                        binding.tvNotificationBadge.setText(String.valueOf(data.size()));
+                        binding.tvNotificationBadge.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.tvNotificationBadge.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                if (isAdded() && binding != null) {
+                    binding.tvNotificationBadge.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void loadUserProfile() {
+        authRepository.fetchProfile(new RepositoryCallback<UserDto>() {
+            @Override
+            public void onSuccess(UserDto data) {
+                // Profile image removed from this fragment's header in redesign
+            }
+
+            @Override
+            public void onError(String message) {}
+        });
+    }
+
     private void loadBookings() {
         LoadingHelper.showShimmer(shimmerLayout, binding.progressBar);
         binding.layoutError.setVisibility(View.GONE);
         binding.rvBookings.setVisibility(View.GONE);
         binding.layoutEmpty.setVisibility(View.GONE);
+
+        updateNotificationBadge();
+        loadUserProfile();
+
         new BookingRepository().getBookings(1, null, new RepositoryCallback<List<BookingDto>>() {
             @Override
             public void onSuccess(List<BookingDto> data) {
@@ -116,39 +166,23 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
 
     private void applyFilter() {
         List<BookingDto> filtered = new ArrayList<>();
-        for (BookingDto b : allBookings) {
-            String status = b.getBookingStatus();
-            if ("active".equals(filterStatus)) {
-                if ("confirmed".equals(status) || "pending".equals(status) || "checked_in".equals(status)) {
-                    filtered.add(b);
-                }
-            } else if (filterStatus.equals(status)
-                    || ("active".equals(filterStatus) && "confirmed".equals(status))) {
-                filtered.add(b);
-            } else if ("pending".equals(filterStatus) && "pending".equals(status)) {
-                filtered.add(b);
-            } else if ("completed".equals(filterStatus) && ("completed".equals(status) || "cancelled".equals(status))) {
-                filtered.add(b);
-            }
-        }
         if ("completed".equals(filterStatus)) {
-            filtered.clear();
             for (BookingDto b : allBookings) {
                 if ("completed".equals(b.getBookingStatus()) || "cancelled".equals(b.getBookingStatus())) {
                     filtered.add(b);
                 }
             }
-        } else if ("pending".equals(filterStatus)) {
-            filtered.clear();
+        } else if ("pending".equals(filterStatus)) { // This maps to the "Upcoming" tab per listener logic
             for (BookingDto b : allBookings) {
+                // Professional Logic: Unpaid/Incomplete bookings are "Upcoming" (Pending payment/action)
                 if ("pending".equals(b.getBookingStatus())) {
                     filtered.add(b);
                 }
             }
-        } else {
-            filtered.clear();
+        } else { // "active" tab
             for (BookingDto b : allBookings) {
-                if ("confirmed".equals(b.getBookingStatus()) || "checked_in".equals(b.getBookingStatus()) || "pending".equals(b.getBookingStatus())) {
+                // Professional Logic: Only verified/paid/in-use bookings are "Active"
+                if ("confirmed".equals(b.getBookingStatus()) || "checked_in".equals(b.getBookingStatus())) {
                     filtered.add(b);
                 }
             }
@@ -202,6 +236,15 @@ public class DriverBookingsFragment extends Fragment implements BookingAdapter.O
         intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_RECEIVER_ID, booking.getParkingSpace().getOwnerId());
         intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_BOOKING_ID, booking.getId());
         intent.putExtra(com.parkshare.frontend.activities.ChatActivity.EXTRA_NAME, booking.getParkingSpace().getParkingName());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onWriteReview(BookingDto booking) {
+        if (booking.getParkingSpace() == null) return;
+        Intent intent = new Intent(requireContext(), ParkingReviewActivity.class);
+        intent.putExtra(ParkingReviewActivity.EXTRA_PARKING_ID, booking.getParkingSpaceId());
+        intent.putExtra(ParkingReviewActivity.EXTRA_PARKING_NAME, booking.getParkingSpace().getParkingName());
         startActivity(intent);
     }
 

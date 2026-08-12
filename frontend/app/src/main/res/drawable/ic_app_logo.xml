@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Background rounded square -->
+    <path
+        android:fillColor="#1E7B3B"
+        android:pathData="M30,0 L170,0 A30,30 0 0 1 200,30 L200,170 A30,30 0 0 1 170,200 L30,200 A30,30 0 0 1 0,170 L0,30 A30,30 0 0 1 30,0 Z" />
+
+    <!-- White 'P' -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,40 L110,40 C135,40 150,55 150,75 C150,95 135,110 110,110 L95,110 L95,160 L60,160 L60,40 Z M95,75 L95,80 L110,80 C115,80 120,78 120,75 C120,72 115,70 110,70 L95,70 L95,75 Z" />
+
+    <!-- Circle for '+' -->
+    <path
+        android:fillColor="#145A2D"
+        android:pathData="M165,115 A35,35 0 1 1 165,185 A35,35 0 1 1 165,115 Z" />
+
+    <!-- Plus sign -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M160,140 L170,140 L170,150 L160,150 L160,160 L150,160 L150,150 L140,150 L140,140 L150,140 L150,130 L160,130 Z" />
+</vector>

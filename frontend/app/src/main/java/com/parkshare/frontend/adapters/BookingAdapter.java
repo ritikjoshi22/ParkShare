@@ -1,14 +1,18 @@
 package com.parkshare.frontend.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.parkshare.api.models.BookingDto;
+import com.parkshare.api.models.ParkingImageDto;
 import com.parkshare.frontend.R;
 import com.parkshare.frontend.databinding.ItemBookingBinding;
 import com.parkshare.frontend.utils.DateTimeFormatUtil;
@@ -29,6 +33,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         void onPay(BookingDto booking);
 
         void onChat(BookingDto booking);
+
+        void onWriteReview(BookingDto booking);
     }
 
     private final List<BookingDto> items = new ArrayList<>();
@@ -77,10 +83,19 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
                 ? booking.getParkingSpace().getParkingName()
                 : "Parking #" + booking.getId();
         holder.binding.tvParkingName.setText(name);
-        holder.binding.tvBookingDate.setText(
-                DateTimeFormatUtil.formatBookingRange(booking.getStartTime(), booking.getEndTime()));
+        holder.binding.tvBookingDate.setText(DateTimeFormatUtil.formatBookingDate(booking.getStartTime()));
+        holder.binding.tvBookingTime.setText(DateTimeFormatUtil.formatTimeRange(booking.getStartTime(), booking.getEndTime()));
+
         holder.binding.tvAmount.setText(String.format(Locale.getDefault(), "NPR %.0f", booking.getTotalAmount()));
         holder.binding.tvStatus.setText(capitalize(booking.getBookingStatus()));
+
+        if (booking.getParkingSpace() != null && booking.getParkingSpace().getImages() != null && !booking.getParkingSpace().getImages().isEmpty()) {
+            ParkingImageDto img = booking.getParkingSpace().getImages().get(0);
+            Glide.with(holder.itemView.getContext())
+                    .load(img.getImageUrl())
+                    .placeholder(R.drawable.ic_parking)
+                    .into(holder.binding.ivParking);
+        }
 
         boolean cancellable = allowCancel && ("pending".equals(booking.getBookingStatus())
                 || "confirmed".equals(booking.getBookingStatus()));
@@ -110,19 +125,45 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
             holder.binding.btnChat.setOnClickListener(v -> listener.onChat(booking));
         }
 
+        if (holder.binding.btnWriteReview != null) {
+            holder.binding.btnWriteReview.setOnClickListener(v -> listener.onWriteReview(booking));
+        }
+
+        if (holder.binding.btnMore != null) {
+            holder.binding.btnMore.setOnClickListener(v -> {
+                // Placeholder for future actions like Delete from history, etc.
+                Toast.makeText(holder.itemView.getContext(), "More options coming soon", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        // Logical thinking: Only show review section for active or completed bookings
+        boolean showReview = "confirmed".equals(booking.getBookingStatus())
+                || "checked_in".equals(booking.getBookingStatus())
+                || "completed".equals(booking.getBookingStatus());
+        holder.binding.layoutReview.setVisibility(showReview ? View.VISIBLE : View.GONE);
+
         int statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.accent);
+        int statusBg = R.drawable.bg_light_gray_card;
+
         if ("confirmed".equals(booking.getBookingStatus())) {
-            statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.secondary);
+            statusColor = Color.parseColor("#2E7D32"); // Green
+            statusBg = R.drawable.bg_light_green_card;
         } else if ("checked_in".equals(booking.getBookingStatus())) {
-            statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.primary);
-        } else if ("checked_out".equals(booking.getBookingStatus())) {
-            statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.accent);
+            statusColor = Color.parseColor("#1E3A8A"); // Professional Blue
+            statusBg = R.drawable.bg_light_blue_card;
         } else if ("cancelled".equals(booking.getBookingStatus())) {
             statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.error);
+            statusBg = R.drawable.bg_light_gray_card;
         } else if ("completed".equals(booking.getBookingStatus())) {
-            statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.primary);
+            statusColor = Color.parseColor("#1E3A8A");
+            statusBg = R.drawable.bg_light_blue_card;
+        } else if ("pending".equals(booking.getBookingStatus())) {
+            statusColor = Color.parseColor("#F59E0B"); // Accent/Orange
+            statusBg = R.drawable.bg_light_gray_card;
         }
+
         holder.binding.tvStatus.setTextColor(statusColor);
+        holder.binding.tvStatus.setBackgroundResource(statusBg);
     }
 
     private boolean hasQr(BookingDto booking) {

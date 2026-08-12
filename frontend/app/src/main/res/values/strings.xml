@@ -4,6 +4,17 @@
 
     <!-- Auth & Splash -->
     <string name="splash_sub_title">Smart Parking &amp; Assistance</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Earn Money Through Parking</string>
+    <string name="onboarding_desc_1">Turn your empty driveway or garage into a passive income stream. List your space in minutes and start earning today.</string>
+    <string name="onboarding_title_2">Find Convenient Parking</string>
+    <string name="onboarding_desc_2">Easily find and book the perfect parking spot near your destination. Save time and avoid the stress of searching.</string>
+    <string name="onboarding_title_3">Secure &amp; Reliable</string>
+    <string name="onboarding_desc_3">Manage your bookings and payments securely. Our platform ensures a smooth experience for both owners and drivers.</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip_introduction">Skip Introduction</string>
+
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="email">Email</string>
@@ -65,6 +76,13 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="logout">Logout</string>
     <string name="settings_label">Settings</string>
+    <string name="profile_label">Profile</string>
+    <string name="switch_to_owner">Switch to Owner</string>
+    <string name="list_parking_earn">List your parking space and earn.</string>
+    <string name="verify_owner">verify owner</string>
+    <string name="parking_history">Parking History</string>
+    <string name="my_favorites">My favorites</string>
+    <string name="help_support">Help &amp; Support</string>
 
     <!-- Bookings -->
     <string name="no_bookings">No Bookings Yet</string>
@@ -220,4 +238,45 @@
     <string name="extending">Extending...</string>
     <string name="not_available">Not Available</string>
     <string name="max_available_time_exceeded">Selected duration exceeds maximum available time</string>
+    <string name="search_parking_nearby">Search for parking nearby</string>
+    <string name="nearby_highlights">Nearby Highlights</string>
+    <string name="no_active_session">No Active Session</string>
+    <string name="active_session_desc">Start a new session and park with confidence.</string>
+    <string name="find_my_parking">Find My Parking</string>
+    <string name="my_favorite">My favorite</string>
+    <string name="ready_to_find">Ready to find the perfect spot?</string>
+    <string name="good_morning">Good morning, %1$s!</string>
+    <string name="good_afternoon">Good afternoon, %1$s!</string>
+    <string name="good_evening">Good evening, %1$s!</string>
+    <string name="review_booking">Review Booking</string>
+    <string name="booking_summary_title">Booking Summary</string>
+    <string name="selected_slot_label">Selected Slot</string>
+    <string name="pay_and_book">Pay &amp; Book Now</string>
+    <string name="total_to_pay">Total Amount to Pay</string>
+    <string name="price_breakdown">Price Breakdown</string>
+    <string name="base_price">Base Price</string>
+    <string name="discount_applied">Discount Applied</string>
+    <string name="proceed_to_summary">Proceed to Summary</string>
+    <string name="duration">Duration</string>
+    <string name="date_time">Date &amp; Time</string>
+    <string name="finalizing_booking">Finalizing your booking...</string>
+    <string name="booking_success_title">Booking Successful!</string>
+    <string name="booking_success_desc">Your parking spot is reserved and ready.</string>
+    <string name="scan_at_entrance">SCAN AT ENTRANCE</string>
+    <string name="review_your_booking">Review Your Booking</string>
+    <string name="view_in_my_bookings">View in My Bookings</string>
+    <string name="reservation_expires_in">Reservation expires in: %1$s</string>
+    <string name="reservation_expired">Reservation expired. Please try booking again.</string>
+    <string name="reservation_notice">Note: Your slot will be reserved for 15 minutes. Complete payment to secure it as occupied.</string>
+    <string name="review_parking_title">How was your stay at %1$s?</string>
+    <string name="review_feedback_hint">Your feedback helps owners and other drivers.</string>
+    <string name="review_security_label">Security</string>
+    <string name="review_condition_label">Condition of parking</string>
+    <string name="review_experience_label">Share more about your experience</string>
+    <string name="review_experience_hint">Tell others about the ease of access, lighting, or overall safety...</string>
+    <string name="review_add_photos">Add photos to your review</string>
+    <string name="review_photos_desc">Drivers love seeing real photos of the spot.</string>
+    <string name="write_review">Write Review</string>
+    <string name="review_success">Review submitted successfully!</string>
+    <string name="select_rating_error">Please select a rating</string>
 </resources>
