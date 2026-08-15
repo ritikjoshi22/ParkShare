@@ -17,6 +17,11 @@ import com.parkshare.frontend.databinding.FragmentDriverNotificationsBinding;
 import com.parkshare.frontend.repository.NotificationRepository;
 import com.parkshare.frontend.utils.RepositoryCallback;
 
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+
 import java.util.List;
 
 public class DriverNotificationsFragment extends Fragment implements NotificationAdapter.OnNotificationClickListener {
@@ -28,6 +33,7 @@ public class DriverNotificationsFragment extends Fragment implements Notificatio
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Configuration.getInstance().load(requireContext(), android.preference.PreferenceManager.getDefaultSharedPreferences(requireContext()));
         binding = FragmentDriverNotificationsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -35,6 +41,7 @@ public class DriverNotificationsFragment extends Fragment implements Notificatio
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupMap();
         adapter = new NotificationAdapter(this);
         binding.rvNotifications.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvNotifications.setAdapter(adapter);
@@ -52,6 +59,14 @@ public class DriverNotificationsFragment extends Fragment implements Notificatio
                     }
                 }));
         load();
+    }
+
+    private void setupMap() {
+        MapView map = binding.mapNearbyTech;
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setMultiTouchControls(false);
+        map.getController().setZoom(14.0);
+        map.getController().setCenter(new GeoPoint(27.7172, 85.3240));
     }
 
     private void load() {

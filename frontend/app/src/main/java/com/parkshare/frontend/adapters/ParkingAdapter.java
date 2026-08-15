@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.parkshare.frontend.R;
 import com.parkshare.frontend.databinding.ItemParkingBinding;
 import com.parkshare.frontend.models.Parking;
 
@@ -16,7 +17,8 @@ import java.util.List;
 public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHolder> {
 
     private List<Parking> parkingList;
-    private OnParkingActionListener listener;
+    private final OnParkingActionListener listener;
+    private final boolean isHorizontal;
 
     public interface OnParkingActionListener {
         void onParkingClick(Parking parking);
@@ -24,8 +26,13 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
     }
 
     public ParkingAdapter(List<Parking> parkingList, OnParkingActionListener listener) {
+        this(parkingList, listener, false);
+    }
+
+    public ParkingAdapter(List<Parking> parkingList, OnParkingActionListener listener, boolean isHorizontal) {
         this.parkingList = parkingList;
         this.listener = listener;
+        this.isHorizontal = isHorizontal;
     }
 
     public void updateList(List<Parking> newList) {
@@ -36,9 +43,14 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemParkingBinding binding = ItemParkingBinding.inflate(
-                LayoutInflater.from(parent.getContext()), parent, false);
-        return new ViewHolder(binding);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view;
+        if (isHorizontal) {
+            view = inflater.inflate(R.layout.item_parking_horizontal, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.item_parking, parent, false);
+        }
+        return new ViewHolder(ItemParkingBinding.bind(view));
     }
 
     @Override
@@ -74,7 +86,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return parkingList.size();
+        return parkingList != null ? parkingList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -42,14 +42,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend">
 
+<<<<<<< HEAD
+        <activity android:name=".activities.SplashActivity"
+=======
         <activity
             android:name=".activities.SplashActivity"
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
             android:name=".activities.LoginActivity"
@@ -108,12 +117,22 @@
             android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
+            android:name=".activities.driver.ParkingSlotSelectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
             android:name=".activities.BookingQrActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 
         <activity
             android:name=".activities.BookingPaymentActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.ParkingReviewActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 

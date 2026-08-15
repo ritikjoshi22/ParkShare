@@ -31,7 +31,7 @@ public class ParkingRepository extends BaseRepository {
     private final ApiService api = ApiClient.getInstance().getApiService();
 
     public void getNearby(double lat, double lng, int page, RepositoryCallback<List<ParkingSpaceDto>> callback) {
-        enqueue(api.nearbyParking(lat, lng, 15, page, 15), callback);
+        enqueue(api.nearbyParking(lat, lng, 200, page, 15), callback);
     }
 
     public void getAll(int page, Double lat, Double lng, RepositoryCallback<List<ParkingSpaceDto>> callback) {

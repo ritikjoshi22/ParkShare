@@ -1,105 +1,408 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#F1F5F9"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvParkingName"
+        <!-- Top Content Section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvBookingDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivParking"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_parking"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
 
             <TextView
-                android:id="@+id/tvAmount"
+                android:id="@+id/tvParkingName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-black"
+                android:textColor="#0F172A"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/btnMore"
+                app:layout_constraintStart_toEndOf="@id/ivParking"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Kathmandu Mall Parking" />
+
+            <ImageView
+                android:id="@+id/btnMore"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_more_vert_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#64748B" />
+
+            <ImageView
+                android:id="@+id/ivCalendar"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_calendar_24"
+                app:layout_constraintStart_toStartOf="@id/tvParkingName"
+                app:layout_constraintTop_toBottomOf="@id/tvParkingName"
+                app:tint="#64748B" />
+
+            <TextView
+                android:id="@+id/tvBookingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="#64748B"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivCalendar"
+                app:layout_constraintStart_toEndOf="@id/ivCalendar"
+                app:layout_constraintTop_toTopOf="@id/ivCalendar"
+                tools:text="Jul 30, 2026" />
+
+            <ImageView
+                android:id="@+id/ivClock"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_clock_24"
+                app:layout_constraintStart_toStartOf="@id/tvParkingName"
+                app:layout_constraintTop_toBottomOf="@id/ivCalendar"
+                app:tint="#64748B" />
+
+            <TextView
+                android:id="@+id/tvBookingTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="#64748B"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivClock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivClock"
+                app:layout_constraintTop_toTopOf="@id/ivClock"
+                tools:text="10:00 AM – 1:00 PM" />
+
+            <!-- Price Pill -->
+            <LinearLayout
+                android:id="@+id/pricePill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_light_blue_card"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivParking">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_nav_map"
+                    app:tint="#1E3A8A" />
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-bold"
+                    android:textColor="#1E3A8A"
+                    android:textSize="13sp"
+                    tools:text="NPR 270" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_light_green_card"
+                android:drawablePadding="6dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textColor="#2E7D32"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                app:layout_constraintBottom_toBottomOf="@id/pricePill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pricePill"
+                tools:drawableStartCompat="@drawable/ic_scan_success"
+                tools:drawableTint="#2E7D32"
+                tools:text="Confirmed" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F1F5F9" />
+
+        <!-- Quick Actions Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-            <com.google.android.material.button.MaterialButton
+            <LinearLayout
                 android:id="@+id/btnChat"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Chat" />
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="14dp">
 
-            <com.google.android.material.button.MaterialButton
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chat_24"
+                    app:tint="#1E3A8A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Chat"
+                    android:textColor="#1E3A8A"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="#F1F5F9" />
+
+            <LinearLayout
                 android:id="@+id/btnViewQr"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/view_qr"
-                android:visibility="gone" />
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="14dp">
 
-            <com.google.android.material.button.MaterialButton
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_qr_scan"
+                    app:tint="#1E3A8A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="View QR"
+                    android:textColor="#1E3A8A"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="#F1F5F9" />
+
+            <LinearLayout
                 android:id="@+id/btnExtend"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/extend_booking"
-                android:visibility="gone" />
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="14dp">
 
-            <com.google.android.material.button.MaterialButton
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calendar_plus_24"
+                    app:tint="#1E3A8A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/extend_booking"
+                    android:textColor="#1E3A8A"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btnPay"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/pay_now"
-                android:visibility="gone" />
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:visibility="gone">
 
-            <com.google.android.material.button.MaterialButton
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-bold"
+                    android:text="Pay Now"
+                    android:textColor="@color/error"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btnCancel"
-                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textColor="@color/error"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Feedback Section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/bg_light_blue_card"
+            android:padding="12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivReviewIcon"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="#E0E7FF"
+                android:padding="10dp"
+                android:src="@drawable/ic_star_outline_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                app:tint="#1E3A8A" />
+
+            <TextView
+                android:id="@+id/tvReviewTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="sans-serif-bold"
+                android:text="How was your parking experience?"
+                android:textColor="#1E3A8A"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivReviewIcon"
+                app:layout_constraintTop_toTopOf="@id/ivReviewIcon" />
+
+            <TextView
+                android:id="@+id/tvReviewSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Your feedback helps us improve"
+                android:textColor="#64748B"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvReviewTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvReviewTitle" />
+
+            <LinearLayout
+                android:id="@+id/starLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel_booking"
-                android:visibility="gone" />
-        </LinearLayout>
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivReviewIcon">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_star_outline_24"
+                    app:tint="#1E3A8A" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_star_outline_24"
+                    app:tint="#1E3A8A" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_star_outline_24"
+                    app:tint="#1E3A8A" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_star_outline_24"
+                    app:tint="#1E3A8A" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_star_outline_24"
+                    app:tint="#1E3A8A" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnWriteReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-bold"
+                android:text="Write a review >"
+                android:textColor="#1E3A8A"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/starLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/starLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

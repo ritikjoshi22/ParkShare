@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#2563EB</color>
-    <color name="primary_variant">#1D4ED8</color>
+    <color name="primary">#1E3A8A</color>
+    <color name="primary_variant">#172554</color>
     <color name="secondary">#10B981</color>
     <color name="secondary_variant">#059669</color>
     <color name="accent">#F59E0B</color>
     <color name="error">#DC2626</color>
-    <color name="background">#F8FAFC</color>
+    <color name="background">#FFFFFF</color>
     <color name="surface">#FFFFFF</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="on_secondary">#FFFFFF</color>
     <color name="on_background">#0F172A</color>
     <color name="on_surface">#0F172A</color>
-    <color name="text_primary">#0F172A</color>
+    <color name="text_primary">#1E293B</color>
     <color name="text_secondary">#64748B</color>
 
-    <!-- Base colors -->
+    <!-- Navigation Colors -->
+    <color name="nav_active">#1E3A8A</color>
+    <color name="nav_inactive">#64748B</color>
+    <color name="nav_indicator">#E0E7FF</color>
+
+    <!-- UI Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_100">#F1F5F9</color>
     <color name="gray_200">#E2E8F0</color>
     <color name="gray_300">#CBD5E1</color>
+    <color name="gray_500">#64748B</color>
+    <color name="outline_variant">#E2E8F0</color>
+    <color name="shimmer_base">#E2E8F0</color>
 
     <color name="slot_available">#22C55E</color>
     <color name="slot_occupied">#EF4444</color>
     <color name="slot_reserved">#3B82F6</color>
     <color name="slot_maintenance">#94A3B8</color>
     <color name="slot_selected">#EAB308</color>
+<<<<<<< HEAD
+=======
 
     <color name="shimmer_base">#E2E8F0</color>
     <color name="outline_variant">#E2E8F0</color>
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
 </resources>

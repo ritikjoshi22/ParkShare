@@ -26,6 +26,16 @@ public final class DateTimeFormatUtil {
         }
     }
 
+    public static String formatBookingDate(String iso) {
+        try {
+            if (iso == null) return "";
+            OffsetDateTime dt = OffsetDateTime.parse(iso);
+            return dt.format(DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.getDefault()));
+        } catch (DateTimeParseException e) {
+            return iso != null ? iso : "";
+        }
+    }
+
     public static String formatTimeOnly(String iso) {
         try {
             if (iso == null) return "";
@@ -33,6 +43,20 @@ public final class DateTimeFormatUtil {
             return dt.format(DateTimeFormatter.ofPattern("h:mm a", Locale.getDefault()));
         } catch (DateTimeParseException e) {
             return iso != null ? iso : "";
+        }
+    }
+
+    public static String formatTimeRange(String startIso, String endIso) {
+        try {
+            OffsetDateTime start = OffsetDateTime.parse(startIso);
+            OffsetDateTime end = endIso != null ? OffsetDateTime.parse(endIso) : null;
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("h:mm a", Locale.getDefault());
+            if (end != null) {
+                return start.format(fmt) + " - " + end.format(fmt);
+            }
+            return start.format(fmt);
+        } catch (Exception e) {
+            return "";
         }
     }
 

@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Emulator: 10.0.2.2 → host machine. Physical device: use your PC LAN IP.
-        buildConfigField("String", "API_BASE_URL", "\"http://192.168.1.6:8000/api/v1/\"")
+        buildConfigField("String", "API_BASE_URL", "\"http://192.168.100.104:8000/api/v1/\"")
     }
 
     buildTypes {
@@ -85,6 +85,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.swiperefresh)
     implementation(libs.stripe)
+    implementation(libs.mpandroidchart)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)

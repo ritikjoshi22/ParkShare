@@ -6,304 +6,179 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
+    <!-- Top Map Context -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapPreview"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false">
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_circle_white"
+        android:elevation="8dp"
+        android:src="@android:drawable/ic_menu_revert"
+        app:tint="@color/text_primary" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpImages"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_collapseMode="parallax" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabDots"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent"
-                app:tabBackground="@drawable/dot_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"
-                app:tabMaxWidth="12dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient_shadow" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@android:drawable/ic_menu_revert" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <!-- High-Fidelity Details Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/detailsCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="16dp"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="24dp">
 
-            <LinearLayout
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:background="@color/gray_200" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Kathmandu Mall Parking"
-                    android:textColor="@color/text_primary"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$5.00/hr"
-                    android:textColor="@color/primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Kanti Path, Kathmandu"
-                android:textColor="@color/text_secondary"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rating_pill"
-                    android:drawablePadding="4dp"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="4.8"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@android:drawable/btn_star_big_on"
-                    app:drawableTint="@color/white" />
-
-                <TextView
-                    android:id="@+id/tvDistance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="1.2 km away"
-                    android:textColor="@color/text_secondary" />
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Open Now"
-                    android:textColor="@color/secondary"
-                    android:textStyle="bold" />
+                    android:background="@color/primary"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:text="OPEN"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="20dp"
-                android:background="@color/gray_100" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Availability"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvSlots"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="12 slots available"
-                android:textColor="@color/text_secondary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="About"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="4dp"
-                android:text="Description text goes here..."
-                android:textColor="@color/text_secondary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Opening Hours"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvHours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="24/7"
-                android:textColor="@color/text_secondary" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnFavorite"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/add_favorite" />
-
-            <TextView
-                android:id="@+id/tvReviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/text_secondary"
-                android:visibility="gone" />
-
-            <!-- Map Preview Section -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="24dp"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="0dp">
-
-                <org.osmdroid.views.MapView
-                    android:id="@+id/mapPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFullMap"
-                    style="@style/Widget.Material3.Button.TonalButton"
+                <TextView
+                    android:id="@+id/tvRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="12dp"
-                    android:text="View Full Map"
-                    android:textSize="12sp" />
+                    android:drawablePadding="4dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="★ 4.8"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Green Valley Parking"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toStartOf="@id/layoutPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvStatus" />
 
-            <Space
+                <LinearLayout
+                    android:id="@+id/layoutPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvRating">
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Rs. 100"
+                        android:textColor="@color/primary"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="per hour"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="0.3 km away • Baneshwor"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/layoutPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+                <!-- Binding supports -->
+                <TextView android:id="@+id/tvDistance" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <TextView android:id="@+id/tvSlots" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Amenities -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:scrollbars="none">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- Fixed Bottom Actions -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNavigate"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="Navigate"
-                app:cornerRadius="12dp"
-                app:icon="@android:drawable/ic_menu_directions" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChat"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="8dp"
-                app:cornerRadius="12dp"
-                app:icon="@android:drawable/stat_notify_chat"
-                app:iconPadding="0dp" />
+                    <TextView style="@style/ChipStyle" android:text="✓ Verified" />
+                    <TextView style="@style/ChipStyle" android:layout_marginStart="8dp" android:text="🏠 Covered" />
+                    <TextView style="@style/ChipStyle" android:layout_marginStart="8dp" android:text="🔌 EV Charging" />
+                    <TextView style="@style/ChipStyle" android:layout_marginStart="8dp" android:text="📹 CCTV" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBook"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1.2"
-                android:text="Book Parking"
-                app:cornerRadius="12dp" />
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/primary"
+                android:text="Book Now  →"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="16dp" />
+
+            <!-- Support Java Bindings (Hidden) -->
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnNavigate" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnChat" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnFavorite" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnFullMap" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/vpImages" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.tabs.TabLayout android:id="@+id/tabDots" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/tvDescription" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/tvHours" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/tvReviews" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <FrameLayout android:id="@+id/progressOverlay" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-    <FrameLayout
-        android:id="@+id/progressOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

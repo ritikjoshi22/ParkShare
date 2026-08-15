@@ -116,10 +116,10 @@ public interface ApiService {
 
     @POST("bookings/{id}/payment-intent")
     Call<ApiResponse<com.parkshare.api.models.PaymentIntentDto>> createPaymentIntent(
-            @Path("id") long id, @Body Map<String, String> body);
+            @Path("id") long bookingId, @Body Map<String, String> body);
 
     @POST("bookings/{id}/confirm-payment")
-    Call<ApiResponse<BookingDto>> confirmPayment(@Path("id") long id, @Body Map<String, String> body);
+    Call<ApiResponse<BookingDto>> confirmPayment(@Path("id") long bookingId, @Body Map<String, String> body);
 
     @GET("parking-spaces/{id}/slots")
     Call<ApiResponse<List<com.parkshare.api.models.ParkingSlotDto>>> parkingSlots(

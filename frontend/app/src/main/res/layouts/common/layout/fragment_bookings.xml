@@ -90,9 +90,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRetry"
+<<<<<<< HEAD:frontend/app/src/main/res/layout/fragment_bookings.xml
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+=======
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/fragment_bookings.xml
             android:text="@string/retry" />
     </LinearLayout>
 

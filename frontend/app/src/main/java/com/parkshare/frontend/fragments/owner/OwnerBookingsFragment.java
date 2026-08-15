@@ -99,6 +99,10 @@ public class OwnerBookingsFragment extends Fragment implements BookingAdapter.On
     }
 
     @Override
+    public void onWriteReview(BookingDto booking) {
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

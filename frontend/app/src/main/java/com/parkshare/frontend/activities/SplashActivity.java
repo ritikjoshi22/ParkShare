@@ -15,10 +15,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Simple professional animation
+        findViewById(R.id.centerContent).setAlpha(0f);
+        findViewById(R.id.centerContent).animate()
+                .alpha(1f)
+                .setDuration(1000)
+                .setStartDelay(200)
+                .start();
+
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
-        }, 2500); // 2.5 seconds
+        }, 3000); // Increased to 3s for better feel
     }
 }

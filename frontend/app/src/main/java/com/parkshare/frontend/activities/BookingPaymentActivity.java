@@ -1,9 +1,11 @@
 package com.parkshare.frontend.activities;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.parkshare.api.models.BookingDto;
@@ -28,6 +30,9 @@ public class BookingPaymentActivity extends AppCompatActivity {
     private long bookingId;
     private PaymentSheet paymentSheet;
     private String paymentIntentId;
+    private CountDownTimer countDownTimer;
+    private long expiryTimeMillis;
+    private static final long RESERVATION_TIMEOUT = 15 * 60 * 1000; // 15 minutes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,62 @@ public class BookingPaymentActivity extends AppCompatActivity {
         binding.tvAmount.setText(String.format(Locale.getDefault(), "NPR %.2f", amount));
         binding.btnPay.setOnClickListener(v -> startPayment(type));
 
+        if (savedInstanceState != null) {
+            expiryTimeMillis = savedInstanceState.getLong("expiry_time");
+        } else {
+            expiryTimeMillis = System.currentTimeMillis() + RESERVATION_TIMEOUT;
+        }
+
         paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
+
+        startReservationTimer(type);
+    }
+
+    private void startReservationTimer(String type) {
+        if (!"booking".equals(type)) return;
+
+        long remaining = expiryTimeMillis - System.currentTimeMillis();
+        if (remaining <= 0) {
+            handleReservationExpired();
+            return;
+        }
+
+        binding.tvTimer.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(remaining, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long minutes = (millisUntilFinished / 1000) / 60;
+                long seconds = (millisUntilFinished / 1000) % 60;
+                String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+                binding.tvTimer.setText(getString(R.string.reservation_expires_in, timeFormatted));
+            }
+
+            @Override
+            public void onFinish() {
+                handleReservationExpired();
+            }
+        }.start();
+    }
+
+    private void handleReservationExpired() {
+        binding.tvTimer.setText(R.string.reservation_expired);
+        binding.btnPay.setEnabled(false);
+        Toast.makeText(BookingPaymentActivity.this, R.string.reservation_expired, Toast.LENGTH_LONG).show();
+        new android.os.Handler().postDelayed(this::finish, 3000);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("expiry_time", expiryTimeMillis);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
     private void startPayment(String type) {
@@ -70,7 +130,27 @@ public class BookingPaymentActivity extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
-                onPaymentError(message);
+                if (message != null && message.contains("No payment required")) {
+                    // Booking might already be paid/confirmed, go straight to QR
+                    redirectToQr();
+                } else {
+                    onPaymentError(message);
+                }
+            }
+        });
+    }
+
+    private void redirectToQr() {
+        new BookingRepository().getBooking(bookingId, new RepositoryCallback<BookingDto>() {
+            @Override
+            public void onSuccess(BookingDto data) {
+                startActivity(BookingQrActivity.intent(BookingPaymentActivity.this, data));
+                finish();
+            }
+
+            @Override
+            public void onError(String message) {
+                finish();
             }
         });
     }
@@ -79,6 +159,7 @@ public class BookingPaymentActivity extends AppCompatActivity {
         new BookingRepository().confirmPayment(bookingId, intentId, new RepositoryCallback<BookingDto>() {
             @Override
             public void onSuccess(BookingDto data) {
+                if (countDownTimer != null) countDownTimer.cancel();
                 binding.progressBar.setVisibility(View.GONE);
                 Toast.makeText(BookingPaymentActivity.this, R.string.payment_success, Toast.LENGTH_LONG).show();
                 
