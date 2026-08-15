@@ -35,4 +35,10 @@
     <color name="slot_reserved">#3B82F6</color>
     <color name="slot_maintenance">#94A3B8</color>
     <color name="slot_selected">#EAB308</color>
+<<<<<<< HEAD
+=======
+
+    <color name="shimmer_base">#E2E8F0</color>
+    <color name="outline_variant">#E2E8F0</color>
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
 </resources>

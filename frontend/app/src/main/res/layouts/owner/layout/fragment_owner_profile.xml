@@ -368,7 +368,11 @@
 
             <!-- Logout Button -->
             <com.google.android.material.card.MaterialCardView
+<<<<<<< HEAD:frontend/app/src/main/res/layout/fragment_owner_profile.xml
                 android:id="@+id/cardLogout"
+=======
+                android:id="@+id/btnLogout"
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/owner/layout/fragment_owner_profile.xml
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

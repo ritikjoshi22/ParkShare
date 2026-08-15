@@ -12,15 +12,13 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- ICON -->
         <ImageView
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_parking"
+            android:src="@drawable/ic_parking_logo"
             android:contentDescription="logo" />
 
-        <!-- APP NAME -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +29,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="12dp"/>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- TITLE -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +71,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Email">
+=======
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Full Name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Email">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
@@ -77,13 +97,19 @@
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- PHONE -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Phone Number">
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
 
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
@@ -91,14 +117,16 @@
                 android:inputType="phone"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- PASSWORD -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Password"
             app:endIconMode="password_toggle">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
@@ -106,14 +134,20 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- CONFIRM PASSWORD -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Confirm Password"
             app:endIconMode="password_toggle">
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
 
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
@@ -121,19 +155,29 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- REGISTER BUTTON -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
             android:text="SIGN UP"
+=======
+            android:text="REGISTER"
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
             android:textAllCaps="false"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             app:cornerRadius="12dp"
             app:backgroundTint="@color/primary"/>
 
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
         <!-- LOGIN REDIRECT -->
+=======
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
         <TextView
             android:id="@+id/tvLoginRedirect"
             android:layout_width="wrap_content"
@@ -142,8 +186,16 @@
             android:textColor="@color/text_secondary"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
+<<<<<<< HEAD:frontend/app/src/main/res/layout/activity_signup.xml
             android:padding="8dp"/>
 
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
+=======
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/common/layout/activity_signup.xml
