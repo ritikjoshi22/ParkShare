@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
-                            android:text="Switch to Owner"
+                            android:text="@string/switch_to_driver"
                             android:textColor="#00743a"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -132,7 +132,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="List your parking space and earn."
+                            android:text="@string/return_to_driver_desc"
                             android:textColor="#005228"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -368,11 +368,7 @@
 
             <!-- Logout Button -->
             <com.google.android.material.card.MaterialCardView
-<<<<<<< HEAD:frontend/app/src/main/res/layout/fragment_owner_profile.xml
-                android:id="@+id/cardLogout"
-=======
                 android:id="@+id/btnLogout"
->>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac:frontend/app/src/main/res/layouts/owner/layout/fragment_owner_profile.xml
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

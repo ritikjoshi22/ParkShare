@@ -44,7 +44,7 @@ public class RoleSelectionActivity extends AppCompatActivity {
         authRepository = new AuthRepository(SessionManager.getInstance(this));
 
         binding.cardDriver.setOnClickListener(v -> registerAs("driver"));
-        binding.cardOwner.setOnClickListener(v -> registerAs("owner"));
+        binding.cardOwner.setOnClickListener(v -> registerAs("driver"));
         binding.cardTechnician.setOnClickListener(v -> registerAs("technician"));
     }
 
@@ -62,6 +62,9 @@ public class RoleSelectionActivity extends AppCompatActivity {
             @Override
             public void onSuccess(com.parkshare.api.models.UserDto data) {
                 setLoading(false);
+                Toast.makeText(RoleSelectionActivity.this,
+                        "Account created. Become an owner anytime from Profile.",
+                        Toast.LENGTH_LONG).show();
                 RoleRouter.openDashboard(RoleSelectionActivity.this);
                 finishAffinity();
             }

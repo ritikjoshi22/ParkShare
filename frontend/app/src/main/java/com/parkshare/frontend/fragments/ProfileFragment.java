@@ -12,12 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.parkshare.api.models.BookingDto;
+import com.parkshare.api.models.OwnerStatusDataDto;
 import com.parkshare.frontend.R;
 import com.parkshare.frontend.activities.FavoritesActivity;
 import com.parkshare.frontend.activities.LoginActivity;
+import com.parkshare.frontend.activities.owner.OwnerMainActivity;
+import com.parkshare.frontend.activities.owner.OwnerVerificationActivity;
+import com.parkshare.frontend.activities.owner.OwnerVerificationStatusActivity;
 import com.parkshare.frontend.databinding.FragmentProfileBinding;
 import com.parkshare.frontend.repository.AuthRepository;
 import com.parkshare.frontend.repository.BookingRepository;
+import com.parkshare.frontend.repository.OwnerRepository;
 import com.parkshare.frontend.utils.RepositoryCallback;
 import com.parkshare.frontend.utils.SessionManager;
 
@@ -52,6 +57,8 @@ public class ProfileFragment extends Fragment {
 
         binding.btnPayment.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), FavoritesActivity.class)));
+
+        binding.btnSwitchMode.setOnClickListener(v -> com.parkshare.frontend.utils.AppModeRouter.handleSwitchToOwner(requireContext()));
 
         binding.btnLogout.setOnClickListener(v -> logout());
     }

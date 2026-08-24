@@ -51,12 +51,31 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function isDriver(): bool
     {
-        return $this->role === UserRole::Driver->value;
+        return in_array($this->role, [UserRole::Driver->value, UserRole::Owner->value], true);
+    }
+
+    public function ownerProfile()
+    {
+        return $this->hasOne(OwnerProfile::class);
+    }
+
+    public function isApprovedOwner(): bool
+    {
+        if ($this->ownerProfile?->isApproved()) {
+            return true;
+        }
+
+        return $this->role === UserRole::Owner->value && ! $this->ownerProfile;
+    }
+
+    public function hasOwnerCapability(): bool
+    {
+        return $this->isApprovedOwner();
     }
 
     public function isOwner(): bool
     {
-        return $this->role === UserRole::Owner->value;
+        return $this->hasOwnerCapability();
     }
 
     public function isTechnician(): bool

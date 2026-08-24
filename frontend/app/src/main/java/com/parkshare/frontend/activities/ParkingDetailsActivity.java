@@ -1,13 +1,20 @@
 package com.parkshare.frontend.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,6 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.parkshare.api.models.FavoriteDto;
 import com.parkshare.api.models.ParkingImageDto;
 import com.parkshare.api.models.ParkingSpaceDto;
+import com.parkshare.api.models.ParkingTechnicianDto;
 import com.parkshare.frontend.R;
 import com.parkshare.frontend.adapters.ParkingImagesAdapter;
 import com.parkshare.frontend.databinding.ActivityParkingDetailsBinding;
@@ -33,6 +41,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.Marker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,6 +56,8 @@ public class ParkingDetailsActivity extends AppCompatActivity {
     private final ParkingRepository parkingRepository = new ParkingRepository();
     private final FavoriteRepository favoriteRepository = new FavoriteRepository();
     private final ReviewRepository reviewRepository = new ReviewRepository();
+    private TechnicianAdapter techAdapter;
+    private final List<ParkingTechnicianDto> technicians = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +94,33 @@ public class ParkingDetailsActivity extends AppCompatActivity {
         });
 
         loadParkingDetails();
+        loadTechnicians();
         checkFavoriteStatus();
+    }
+
+    private void loadTechnicians() {
+        binding.rvTechnicians.setLayoutManager(new LinearLayoutManager(this));
+        techAdapter = new TechnicianAdapter(technicians);
+        binding.rvTechnicians.setAdapter(techAdapter);
+
+        parkingRepository.getTechnicians(parkingId, new RepositoryCallback<List<ParkingTechnicianDto>>() {
+            @Override
+            public void onSuccess(List<ParkingTechnicianDto> data) {
+                technicians.clear();
+                if (data != null && !data.isEmpty()) {
+                    technicians.addAll(data);
+                    binding.tvTechniciansHeader.setVisibility(View.VISIBLE);
+                    binding.rvTechnicians.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvTechniciansHeader.setVisibility(View.GONE);
+                    binding.rvTechnicians.setVisibility(View.GONE);
+                }
+                techAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String message) {}
+        });
     }
 
     private void loadParkingDetails() {
@@ -287,5 +324,51 @@ public class ParkingDetailsActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         binding.mapPreview.onPause();
+    }
+
+    private static class TechnicianAdapter extends RecyclerView.Adapter<TechnicianAdapter.Holder> {
+        private final List<ParkingTechnicianDto> items;
+
+        TechnicianAdapter(List<ParkingTechnicianDto> items) {
+            this.items = items;
+        }
+
+        @NonNull
+        @Override
+        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_parking_technician, parent, false);
+            return new Holder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull Holder holder, int position) {
+            ParkingTechnicianDto tech = items.get(position);
+            holder.name.setText(tech.getName());
+            holder.meta.setText(tech.getSpecialization() + " • " + tech.getAvailabilityStatus());
+            holder.phone.setText(tech.getPhone());
+            holder.phone.setOnClickListener(v -> {
+                Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tech.getPhone()));
+                v.getContext().startActivity(call);
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return items.size();
+        }
+
+        static class Holder extends RecyclerView.ViewHolder {
+            final TextView name;
+            final TextView meta;
+            final TextView phone;
+
+            Holder(@NonNull View itemView) {
+                super(itemView);
+                name = itemView.findViewById(R.id.tvName);
+                meta = itemView.findViewById(R.id.tvMeta);
+                phone = itemView.findViewById(R.id.tvPhone);
+            }
+        }
     }
 }

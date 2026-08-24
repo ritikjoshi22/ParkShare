@@ -21,7 +21,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
             'password' => ['required', 'confirmed', Password::defaults()],
-            'role' => ['required', Rule::in(array_filter(UserRole::values(), fn ($r) => $r !== UserRole::Admin->value))],
+            'role' => ['required', Rule::in([UserRole::Driver->value, UserRole::Technician->value])],
             'address' => ['nullable', 'string', 'max:500'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],

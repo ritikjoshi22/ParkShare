@@ -78,6 +78,8 @@
     <string name="settings_label">Settings</string>
     <string name="profile_label">Profile</string>
     <string name="switch_to_owner">Switch to Owner</string>
+    <string name="switch_to_driver">Switch to Driver</string>
+    <string name="return_to_driver_desc">Return to booking parking spots.</string>
     <string name="list_parking_earn">List your parking space and earn.</string>
     <string name="verify_owner">verify owner</string>
     <string name="parking_history">Parking History</string>
@@ -238,7 +240,6 @@
     <string name="extending">Extending...</string>
     <string name="not_available">Not Available</string>
     <string name="max_available_time_exceeded">Selected duration exceeds maximum available time</string>
-<<<<<<< HEAD
     <string name="search_parking_nearby">Search for parking nearby</string>
     <string name="nearby_highlights">Nearby Highlights</string>
     <string name="no_active_session">No Active Session</string>
@@ -280,7 +281,6 @@
     <string name="write_review">Write Review</string>
     <string name="review_success">Review submitted successfully!</string>
     <string name="select_rating_error">Please select a rating</string>
-=======
 
     <!-- Owner Verification -->
     <string name="owner_verification_title">Owner Verification</string>
@@ -345,5 +345,15 @@
     <string name="security_guard_label">Security Guard</string>
     <string name="lighting_label">EV Charging</string>
     <string name="verify_publish">Verify &amp; Publish</string>
->>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
+    <string name="verification_submitted_title">Verification Submitted</string>
+    <string name="verification_pending_message">Status: Pending Review. We will notify you once your owner verification is approved.</string>
+    <string name="back_to_profile">Back to Driver Profile</string>
+    <string name="manage_technicians">Manage Technicians</string>
+    <string name="add_technician">Add Technician</string>
+    <string name="edit_technician">Edit Technician</string>
+    <string name="no_technicians">No technicians added yet.</string>
+    <string name="technician_name">Technician Name</string>
+    <string name="specialization">Specialization</string>
+    <string name="technician_assistance">Technician / Assistance</string>
+    <string name="call_technician">Call</string>
 </resources>

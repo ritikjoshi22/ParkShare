@@ -30,8 +30,9 @@ class AuthController extends ApiController
                 'service_radius_km' => 10,
                 'availability_status' => 'offline',
             ]);
-            $user->load('technician');
         }
+
+        $user->load(['technician', 'ownerProfile']);
 
         $token = $user->createToken('api-token')->plainTextToken;
 
@@ -56,7 +57,7 @@ class AuthController extends ApiController
             return $this->error('Account is deactivated.', 403);
         }
 
-        $user->load('technician');
+        $user->load(['technician', 'ownerProfile']);
         $token = $user->createToken('api-token')->plainTextToken;
 
         return $this->success([
@@ -75,7 +76,7 @@ class AuthController extends ApiController
 
     public function profile(Request $request): JsonResponse
     {
-        $user = $request->user()->load('technician.services');
+        $user = $request->user()->load(['technician.services', 'ownerProfile']);
 
         return $this->success(new UserResource($user));
     }
@@ -91,6 +92,6 @@ class AuthController extends ApiController
 
         $user->update($data);
 
-        return $this->success(new UserResource($user->fresh('technician')), 'Profile updated.');
+        return $this->success(new UserResource($user->fresh(['technician', 'ownerProfile'])), 'Profile updated.');
     }
 }
