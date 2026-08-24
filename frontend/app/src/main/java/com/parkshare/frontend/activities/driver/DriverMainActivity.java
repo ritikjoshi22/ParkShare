@@ -35,6 +35,8 @@ public class DriverMainActivity extends BaseRoleActivity {
         return sessionManager.isDriver();
     }
 
+    public static final String EXTRA_TARGET_TAB = "target_tab";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,9 @@ public class DriverMainActivity extends BaseRoleActivity {
 
         Set<Integer> topLevel = new HashSet<>();
         topLevel.add(R.id.driver_home);
+        topLevel.add(R.id.driver_map);
         topLevel.add(R.id.driver_bookings);
+        topLevel.add(R.id.driver_notifications);
         topLevel.add(R.id.driver_sos);
         topLevel.add(R.id.driver_profile);
 
@@ -60,7 +64,26 @@ public class DriverMainActivity extends BaseRoleActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, config);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        handleTargetNavigation(navController);
         updateNotificationBadge();
+    }
+
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host);
+        if (navHostFragment != null) {
+            handleTargetNavigation(navHostFragment.getNavController());
+        }
+    }
+
+    private void handleTargetNavigation(NavController navController) {
+        int targetTab = getIntent().getIntExtra(EXTRA_TARGET_TAB, -1);
+        if (targetTab != -1) {
+            navController.navigate(targetTab);
+        }
     }
 
     private void updateNotificationBadge() {

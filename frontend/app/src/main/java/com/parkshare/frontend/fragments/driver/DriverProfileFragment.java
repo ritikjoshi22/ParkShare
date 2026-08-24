@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.parkshare.api.models.BookingDto;
 import com.parkshare.frontend.R;
 import com.parkshare.frontend.activities.FavoritesActivity;
 import com.parkshare.frontend.activities.LoginActivity;
+import com.parkshare.frontend.activities.NotificationsActivity;
 import com.parkshare.frontend.databinding.FragmentDriverProfileBinding;
 import com.parkshare.frontend.repository.AuthRepository;
 import com.parkshare.frontend.repository.BookingRepository;
@@ -42,19 +44,44 @@ public class DriverProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sessionManager = SessionManager.getInstance(requireContext());
-        binding.tvUserName.setText(sessionManager.getFullName());
-        binding.tvUserEmail.setText(sessionManager.getEmail());
+        
+        displayUserInfo();
+
+        binding.btnEditProfile.setOnClickListener(v -> 
+            Toast.makeText(requireContext(), "Edit Profile clicked", Toast.LENGTH_SHORT).show());
+
+        binding.btnNotifications.setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), NotificationsActivity.class)));
+
+        binding.btnParkingHistory.setOnClickListener(v ->
+                androidx.navigation.Navigation.findNavController(view).navigate(R.id.driver_bookings));
 
         binding.btnFavorites.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), FavoritesActivity.class)));
-        binding.btnMyBookings.setOnClickListener(v ->
-                androidx.navigation.Navigation.findNavController(view).navigate(R.id.driver_bookings));
-        binding.btnLogout.setOnClickListener(v -> logout());
-        binding.btnScanCheckIn.setVisibility(View.GONE);
-        binding.btnScanCheckOut.setVisibility(View.GONE);
-        binding.btnTheme.setOnClickListener(v -> showThemeDialog());
+        
+        binding.btnSettings.setOnClickListener(v -> showThemeDialog());
 
-        loadStats();
+        binding.btnHelpSupport.setOnClickListener(v ->
+                Toast.makeText(requireContext(), "Help & Support clicked", Toast.LENGTH_SHORT).show());
+
+        binding.btnVerifyOwner.setOnClickListener(v ->
+                Toast.makeText(requireContext(), "Verify Owner clicked", Toast.LENGTH_SHORT).show());
+
+        binding.cardSwitchToOwner.setOnClickListener(v ->
+                Toast.makeText(requireContext(), "Switch to Owner clicked", Toast.LENGTH_SHORT).show());
+
+        binding.btnLogout.setOnClickListener(v -> logout());
+    }
+
+    private void displayUserInfo() {
+        binding.tvUserName.setText(sessionManager.getFullName());
+        binding.tvUserEmail.setText(sessionManager.getEmail());
+        binding.tvUserPhone.setText(sessionManager.getPhone());
+
+        // Load profile image if available
+        // Note: You might need to add a method getProfileImage() to SessionManager if it's stored
+        // Glide.with(this).load(imageUrl).placeholder(R.drawable.ic_menu_gallery).into(binding.ivLargeProfile);
+        // Glide.with(this).load(imageUrl).placeholder(R.drawable.ic_menu_gallery).into(binding.ivSmallProfile);
     }
 
     private void showThemeDialog() {
@@ -75,31 +102,6 @@ public class DriverProfileFragment extends Fragment {
                     ThemeManager.setThemeMode(requireContext(), mode);
                 })
                 .show();
-    }
-
-    private void loadStats() {
-        new BookingRepository().getBookings(1, null, new RepositoryCallback<List<BookingDto>>() {
-            @Override
-            public void onSuccess(List<BookingDto> data) {
-                int count = data != null ? data.size() : 0;
-                double spent = 0;
-                if (data != null) {
-                    for (BookingDto b : data) {
-                        if ("completed".equals(b.getBookingStatus()) || "confirmed".equals(b.getBookingStatus())) {
-                            spent += b.getTotalAmount();
-                        }
-                    }
-                }
-                binding.tvBookingsCount.setText(String.valueOf(count));
-                binding.tvSpentAmount.setText(String.format(Locale.getDefault(), "NPR %.0f", spent));
-            }
-
-            @Override
-            public void onError(String message) {
-                binding.tvBookingsCount.setText("0");
-                binding.tvSpentAmount.setText("NPR 0");
-            }
-        });
     }
 
     private void logout() {

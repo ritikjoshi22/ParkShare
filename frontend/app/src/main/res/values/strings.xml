@@ -4,6 +4,17 @@
 
     <!-- Auth & Splash -->
     <string name="splash_sub_title">Smart Parking &amp; Assistance</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Earn Money Through Parking</string>
+    <string name="onboarding_desc_1">Turn your empty driveway or garage into a passive income stream. List your space in minutes and start earning today.</string>
+    <string name="onboarding_title_2">Find Convenient Parking</string>
+    <string name="onboarding_desc_2">Easily find and book the perfect parking spot near your destination. Save time and avoid the stress of searching.</string>
+    <string name="onboarding_title_3">Secure &amp; Reliable</string>
+    <string name="onboarding_desc_3">Manage your bookings and payments securely. Our platform ensures a smooth experience for both owners and drivers.</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip_introduction">Skip Introduction</string>
+
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="email">Email</string>
@@ -65,6 +76,13 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="logout">Logout</string>
     <string name="settings_label">Settings</string>
+    <string name="profile_label">Profile</string>
+    <string name="switch_to_owner">Switch to Owner</string>
+    <string name="list_parking_earn">List your parking space and earn.</string>
+    <string name="verify_owner">verify owner</string>
+    <string name="parking_history">Parking History</string>
+    <string name="my_favorites">My favorites</string>
+    <string name="help_support">Help &amp; Support</string>
 
     <!-- Bookings -->
     <string name="no_bookings">No Bookings Yet</string>
@@ -220,4 +238,112 @@
     <string name="extending">Extending...</string>
     <string name="not_available">Not Available</string>
     <string name="max_available_time_exceeded">Selected duration exceeds maximum available time</string>
+<<<<<<< HEAD
+    <string name="search_parking_nearby">Search for parking nearby</string>
+    <string name="nearby_highlights">Nearby Highlights</string>
+    <string name="no_active_session">No Active Session</string>
+    <string name="active_session_desc">Start a new session and park with confidence.</string>
+    <string name="find_my_parking">Find My Parking</string>
+    <string name="my_favorite">My favorite</string>
+    <string name="ready_to_find">Ready to find the perfect spot?</string>
+    <string name="good_morning">Good morning, %1$s!</string>
+    <string name="good_afternoon">Good afternoon, %1$s!</string>
+    <string name="good_evening">Good evening, %1$s!</string>
+    <string name="review_booking">Review Booking</string>
+    <string name="booking_summary_title">Booking Summary</string>
+    <string name="selected_slot_label">Selected Slot</string>
+    <string name="pay_and_book">Pay &amp; Book Now</string>
+    <string name="total_to_pay">Total Amount to Pay</string>
+    <string name="price_breakdown">Price Breakdown</string>
+    <string name="base_price">Base Price</string>
+    <string name="discount_applied">Discount Applied</string>
+    <string name="proceed_to_summary">Proceed to Summary</string>
+    <string name="duration">Duration</string>
+    <string name="date_time">Date &amp; Time</string>
+    <string name="finalizing_booking">Finalizing your booking...</string>
+    <string name="booking_success_title">Booking Successful!</string>
+    <string name="booking_success_desc">Your parking spot is reserved and ready.</string>
+    <string name="scan_at_entrance">SCAN AT ENTRANCE</string>
+    <string name="review_your_booking">Review Your Booking</string>
+    <string name="view_in_my_bookings">View in My Bookings</string>
+    <string name="reservation_expires_in">Reservation expires in: %1$s</string>
+    <string name="reservation_expired">Reservation expired. Please try booking again.</string>
+    <string name="reservation_notice">Note: Your slot will be reserved for 15 minutes. Complete payment to secure it as occupied.</string>
+    <string name="review_parking_title">How was your stay at %1$s?</string>
+    <string name="review_feedback_hint">Your feedback helps owners and other drivers.</string>
+    <string name="review_security_label">Security</string>
+    <string name="review_condition_label">Condition of parking</string>
+    <string name="review_experience_label">Share more about your experience</string>
+    <string name="review_experience_hint">Tell others about the ease of access, lighting, or overall safety...</string>
+    <string name="review_add_photos">Add photos to your review</string>
+    <string name="review_photos_desc">Drivers love seeing real photos of the spot.</string>
+    <string name="write_review">Write Review</string>
+    <string name="review_success">Review submitted successfully!</string>
+    <string name="select_rating_error">Please select a rating</string>
+=======
+
+    <!-- Owner Verification -->
+    <string name="owner_verification_title">Owner Verification</string>
+    <string name="step_1_of_4">Step 1 of 4</string>
+    <string name="confirm_identity">Confirm your identity</string>
+    <string name="verification_desc">To start hosting your space on ParkShare, we need to verify your credentials for security and trust.</string>
+    <string name="identification_details">Identification Details</string>
+    <string name="pan_number">PAN Number</string>
+    <string name="pan_hint">Enter your 10-digit Permanent Account Number</string>
+    <string name="upload_documents">Upload Documents</string>
+    <string name="citizenship_front">Citizenship (Front)</string>
+    <string name="citizenship_back">Citizenship (Back)</string>
+    <string name="driving_license_label">Driving License</string>
+    <string name="tap_to_upload">Tap to upload or take photo</string>
+    <string name="selfie_verification">Selfie Verification</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="verification_consent">I confirm that all provided information is accurate and I agree to the verification terms.</string>
+    <string name="save_draft">Save Draft</string>
+    <string name="continue_label">Continue</string>
+
+    <!-- Owner Verification Step 2 -->
+    <string name="step_2_of_4">Step 2 of 4</string>
+    <string name="legal_location_title">Legal &amp; Location</string>
+    <string name="legal_location_desc">Verify your property ownership to start listing your space on ParkShare.</string>
+    <string name="lalpurja_label">Ownership Certificate (Lalpurja)</string>
+    <string name="tax_receipt_label">Latest Property Tax Receipt</string>
+    <string name="tax_receipt_hint">Must be from current fiscal year</string>
+    <string name="set_property_location">Set Property Location</string>
+    <string name="upload_lalpurja">Upload Lalpurja</string>
+    <string name="upload_tax_receipt">Upload Tax Receipt</string>
+    <string name="file_types_limit">JPG, PNG or PDF (Max 5MB)</string>
+    <string name="location_tip">Dragging the pin precisely to your property entrance helps drivers find you easier.</string>
+    <string name="verification_tip_title">Verification Tip</string>
+    <string name="verification_tip_desc">Ensure the name on your Lalpurja matches the Citizenship ID provided in Step 1.</string>
+
+    <!-- Owner Verification Step 3 -->
+    <string name="step_3_of_4">Step 3 of 4</string>
+    <string name="security_verification_title">Security Verification</string>
+    <string name="security_verification_desc">To verify your parking space, please upload clear photos of the entry points and safety equipment. This helps users feel secure when booking.</string>
+    <string name="entry_gate_label">Entry Gate</string>
+    <string name="entry_gate_desc">Includes the entry mechanism or street entrance clearly.</string>
+    <string name="front_view_label">Front View</string>
+    <string name="back_view_label">Back View</string>
+    <string name="left_view_label">Left View</string>
+    <string name="right_view_label">Right View</string>
+    <string name="cctv_view_label">CCTV View</string>
+    <string name="safety_gear_label">Safety Gear</string>
+    <string name="owner_photo_label">Owner Photo</string>
+    <string name="owner_photo_desc">A selfie in the location for physical access.</string>
+    <string name="privacy_security_title">Privacy &amp; Security</string>
+    <string name="privacy_security_desc">Your photos are stored on secured servers and only used for internal verification purposes.</string>
+    <string name="continue_final_step">Continue to Final Step</string>
+
+    <!-- Owner Verification Step 4 -->
+    <string name="step_4_of_4">Step 4 of 4</string>
+    <string name="parking_features_title">Parking Features</string>
+    <string name="parking_features_desc">Select all amenities available at your parking spot to help drivers find exactly what they need.</string>
+    <string name="banner_title">Highlight your space\'s best assets</string>
+    <string name="banner_desc">Listings with more features get 40% more bookings.</string>
+    <string name="covered_parking_label">Covered</string>
+    <string name="cctv_label">CCTV</string>
+    <string name="security_guard_label">Security Guard</string>
+    <string name="lighting_label">EV Charging</string>
+    <string name="verify_publish">Verify &amp; Publish</string>
+>>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
 </resources>

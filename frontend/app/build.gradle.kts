@@ -41,6 +41,20 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    sourceSets {
+        getByName("main") {
+            res.setSrcDirs(
+                listOf(
+                    "src/main/res/layouts/driver",
+                    "src/main/res/layouts/owner",
+                    "src/main/res/layouts/technician",
+                    "src/main/res/layouts/common",
+                    "src/main/res"
+                )
+            )
+        }
+    }
 }
 
 java {
@@ -59,7 +73,6 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation("org.osmdroid:osmdroid-android:6.1.18")
     implementation("com.google.android.gms:play-services-location:21.3.0")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp)
@@ -69,8 +82,10 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.5.3")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.swiperefresh)
     implementation(libs.stripe)
+    implementation(libs.mpandroidchart)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)

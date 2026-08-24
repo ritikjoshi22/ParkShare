@@ -18,6 +18,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WebhookController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return response()->json(['success' => true, 'message' => 'ParkShare API v1 is running']);
+});
+
 Route::post('webhooks/stripe', [WebhookController::class, 'handleStripe']);
 
 Route::prefix('auth')->group(function () {

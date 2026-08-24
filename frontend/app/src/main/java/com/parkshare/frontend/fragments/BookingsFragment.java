@@ -93,6 +93,16 @@ public class BookingsFragment extends Fragment implements BookingAdapter.OnBooki
     }
 
     @Override
+    public void onWriteReview(BookingDto booking) {
+        if (booking.getParkingSpace() == null) return;
+
+        Intent intent = new Intent(getContext(), com.parkshare.frontend.activities.ParkingReviewActivity.class);
+        intent.putExtra(com.parkshare.frontend.activities.ParkingReviewActivity.EXTRA_PARKING_ID, booking.getParkingSpace().getId());
+        intent.putExtra(com.parkshare.frontend.activities.ParkingReviewActivity.EXTRA_PARKING_NAME, booking.getParkingSpace().getParkingName());
+        startActivity(intent);
+    }
+
+    @Override
     public void onCancel(BookingDto booking) {
         bookingRepository.cancelBooking(booking.getId(), new RepositoryCallback<BookingDto>() {
             @Override

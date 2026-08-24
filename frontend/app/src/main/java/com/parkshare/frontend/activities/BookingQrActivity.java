@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parkshare.api.models.BookingDto;
 import com.parkshare.frontend.R;
 import com.parkshare.frontend.databinding.ActivityBookingQrBinding;
+import com.parkshare.frontend.activities.driver.DriverMainActivity;
 import com.parkshare.frontend.repository.BookingRepository;
 import com.parkshare.frontend.utils.DateTimeFormatUtil;
 import com.parkshare.frontend.utils.QrCodeHelper;
@@ -26,6 +27,8 @@ public class BookingQrActivity extends AppCompatActivity {
     public static final String EXTRA_PARKING_NAME = "parking_name";
     public static final String EXTRA_START_TIME = "start_time";
     public static final String EXTRA_END_TIME = "end_time";
+    public static final String EXTRA_SLOT_LABEL = "slot_label";
+    public static final String EXTRA_DURATION = "duration";
 
     private ActivityBookingQrBinding binding;
     private long bookingId;
@@ -37,8 +40,15 @@ public class BookingQrActivity extends AppCompatActivity {
         if (booking.getParkingSpace() != null) {
             intent.putExtra(EXTRA_PARKING_NAME, booking.getParkingSpace().getParkingName());
         }
+        if (booking.getParkingSlot() != null) {
+            intent.putExtra(EXTRA_SLOT_LABEL, booking.getParkingSlot().getLabel());
+        }
         intent.putExtra(EXTRA_START_TIME, booking.getStartTime());
         intent.putExtra(EXTRA_END_TIME, booking.getEndTime());
+
+        long hours = (long) Math.ceil(booking.getTotalAmount() > 0 ? (booking.getTotalHours() > 0 ? booking.getTotalHours() : 3) : 3);
+        intent.putExtra(EXTRA_DURATION, hours + (hours == 1 ? " Hour" : " Hours"));
+
         return intent;
     }
 
@@ -50,18 +60,41 @@ public class BookingQrActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
-        binding.btnRegenerate.setVisibility(View.GONE);
 
         bookingId = getIntent().getLongExtra(EXTRA_BOOKING_ID, -1);
         String qrCode = getIntent().getStringExtra(EXTRA_QR_CODE);
 
         String parkingName = getIntent().getStringExtra(EXTRA_PARKING_NAME);
         binding.tvParkingName.setText(parkingName != null && !parkingName.isEmpty()
-                ? parkingName : getString(R.string.booking_qr_title));
+                ? parkingName : "Parking Space");
+
+        String slotLabel = getIntent().getStringExtra(EXTRA_SLOT_LABEL);
+        binding.tvSlotLabel.setText(slotLabel != null ? slotLabel : "—");
+
+        String duration = getIntent().getStringExtra(EXTRA_DURATION);
+        binding.tvDurationValue.setText(duration != null ? duration : "—");
 
         String start = getIntent().getStringExtra(EXTRA_START_TIME);
         String end = getIntent().getStringExtra(EXTRA_END_TIME);
-        binding.tvBookingTime.setText(DateTimeFormatUtil.formatBookingRange(start, end));
+        binding.tvBookingDate.setText(DateTimeFormatUtil.formatBookingDate(start));
+
+        binding.tvReference.setText("Reference: PS-" + bookingId + "-B");
+
+        animateEntrance();
+
+        binding.btnViewBookings.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DriverMainActivity.class);
+            intent.putExtra(DriverMainActivity.EXTRA_TARGET_TAB, R.id.driver_bookings);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
+        binding.btnReview.setOnClickListener(v -> {
+            Intent reviewIntent = new Intent(this, ParkingReviewActivity.class);
+            reviewIntent.putExtra(ParkingReviewActivity.EXTRA_PARKING_ID, 0L); // Need real ID if available, otherwise just open
+            reviewIntent.putExtra(ParkingReviewActivity.EXTRA_PARKING_NAME, parkingName);
+            startActivity(reviewIntent);
+        });
 
         if (qrCode != null && !qrCode.isEmpty()) {
             renderQr(qrCode);
@@ -71,6 +104,35 @@ public class BookingQrActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.qr_not_available, Toast.LENGTH_LONG).show();
             finish();
         }
+    }
+
+    private void animateEntrance() {
+        binding.ivSuccessIcon.setAlpha(0f);
+        binding.ivSuccessIcon.setScaleX(0.5f);
+        binding.ivSuccessIcon.setScaleY(0.5f);
+        binding.ivSuccessIcon.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(600)
+                .setStartDelay(200)
+                .start();
+
+        binding.ticketCard.setTranslationY(100f);
+        binding.ticketCard.setAlpha(0f);
+        binding.ticketCard.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(600)
+                .setStartDelay(400)
+                .start();
+
+        binding.buttonContainer.setAlpha(0f);
+        binding.buttonContainer.animate()
+                .alpha(1f)
+                .setDuration(500)
+                .setStartDelay(800)
+                .start();
     }
 
     private void refreshFromServer() {
@@ -86,8 +148,13 @@ public class BookingQrActivity extends AppCompatActivity {
                 if (data.getParkingSpace() != null) {
                     binding.tvParkingName.setText(data.getParkingSpace().getParkingName());
                 }
-                binding.tvBookingTime.setText(
-                        DateTimeFormatUtil.formatBookingRange(data.getStartTime(), data.getEndTime()));
+                if (data.getParkingSlot() != null) {
+                    binding.tvSlotLabel.setText(data.getParkingSlot().getLabel());
+                }
+                binding.tvBookingDate.setText(DateTimeFormatUtil.formatBookingDate(data.getStartTime()));
+                long hours = (long) Math.ceil(data.getTotalHours() > 0 ? data.getTotalHours() : 3);
+                binding.tvDurationValue.setText(hours + (hours == 1 ? " Hour" : " Hours"));
+
                 renderQr(data.getQrCode());
             }
 

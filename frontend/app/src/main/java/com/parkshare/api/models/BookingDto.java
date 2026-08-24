@@ -83,6 +83,10 @@ public class BookingDto {
         return totalAmount;
     }
 
+    public double getTotalHours() {
+        return totalHours;
+    }
+
     public String getBookingStatus() {
         return bookingStatus;
     }
