@@ -24,6 +24,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 public interface ApiService {
 
     @POST("auth/login")
@@ -76,6 +79,60 @@ public interface ApiService {
 
     @GET("owner/stats")
     Call<ApiResponse<com.parkshare.api.models.OwnerStatsDto>> ownerStats();
+
+    @GET("owner/status")
+    Call<ApiResponse<com.parkshare.api.models.OwnerStatusDataDto>> ownerStatus();
+
+    @GET("owner/verification")
+    Call<ApiResponse<com.parkshare.api.models.OwnerProfileDto>> ownerVerification();
+
+    @PUT("owner/verification/step/{step}")
+    Call<ApiResponse<com.parkshare.api.models.OwnerProfileDto>> saveOwnerVerificationStep(
+            @Path("step") int step,
+            @Body Map<String, Object> body
+    );
+
+    @retrofit2.http.Multipart
+    @POST("owner/documents")
+    Call<ApiResponse<com.parkshare.api.models.OwnerDocumentDto>> uploadOwnerDocument(
+            @retrofit2.http.Part("document_type") RequestBody documentType,
+            @retrofit2.http.Part MultipartBody.Part file
+    );
+
+    @DELETE("owner/documents/{id}")
+    Call<ApiResponse<Void>> deleteOwnerDocument(@Path("id") long id);
+
+    @POST("owner/verification/submit")
+    Call<ApiResponse<com.parkshare.api.models.OwnerProfileDto>> submitOwnerVerification();
+
+    @GET("owner/parking-spaces/{id}/technicians")
+    Call<ApiResponse<List<com.parkshare.api.models.ParkingTechnicianDto>>> ownerParkingTechnicians(
+            @Path("id") long parkingSpaceId
+    );
+
+    @GET("parking-spaces/{id}/technicians")
+    Call<ApiResponse<List<com.parkshare.api.models.ParkingTechnicianDto>>> parkingTechnicians(
+            @Path("id") long parkingSpaceId
+    );
+
+    @POST("owner/parking-spaces/{id}/technicians")
+    Call<ApiResponse<com.parkshare.api.models.ParkingTechnicianDto>> addParkingTechnician(
+            @Path("id") long parkingSpaceId,
+            @Body Map<String, Object> body
+    );
+
+    @PUT("owner/parking-spaces/{id}/technicians/{technicianId}")
+    Call<ApiResponse<com.parkshare.api.models.ParkingTechnicianDto>> updateParkingTechnician(
+            @Path("id") long parkingSpaceId,
+            @Path("technicianId") long technicianId,
+            @Body Map<String, Object> body
+    );
+
+    @DELETE("owner/parking-spaces/{id}/technicians/{technicianId}")
+    Call<ApiResponse<Void>> deleteParkingTechnician(
+            @Path("id") long parkingSpaceId,
+            @Path("technicianId") long technicianId
+    );
 
     @GET("bookings")
     Call<ApiResponse<List<BookingDto>>> bookings(

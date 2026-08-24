@@ -54,6 +54,10 @@ public class ParkingRepository extends BaseRepository {
         enqueueVoid(api.deleteParkingSpace(id), callback);
     }
 
+    public void getTechnicians(long parkingSpaceId, RepositoryCallback<List<com.parkshare.api.models.ParkingTechnicianDto>> callback) {
+        enqueue(api.parkingTechnicians(parkingSpaceId), callback);
+    }
+
     public void uploadImages(long parkingId, List<Uri> uris, RepositoryCallback<Void> callback) {
         if (uris == null || uris.isEmpty()) {
             callback.onSuccess(null);

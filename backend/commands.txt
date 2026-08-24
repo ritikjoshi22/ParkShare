@@ -7,3 +7,11 @@ php artisan serve --host=0.0.0.0 --port=8000
 
 # If using Android Emulator
 - API Base: http://10.0.2.2:8000/api/v1/
+
+Demo login (all use Password@123):
+
+Role	Email
+Driver: driver@parkshare.test
+Owner: owner@parkshare.test
+Technician: technician@parkshare.test
+Admin: admin@parkshare.test

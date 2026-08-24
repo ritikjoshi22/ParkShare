@@ -59,6 +59,9 @@ public class ParkingSpaceDto {
     @SerializedName("reviews_avg_rating")
     private Double reviewsAvgRating;
 
+    @SerializedName("technicians")
+    private List<ParkingTechnicianDto> technicians;
+
     public long getId() {
         return id;
     }
@@ -117,5 +120,9 @@ public class ParkingSpaceDto {
 
     public long getOwnerId() {
         return ownerId;
+    }
+
+    public List<ParkingTechnicianDto> getTechnicians() {
+        return technicians;
     }
 }

@@ -20,6 +20,7 @@ import com.parkshare.frontend.activities.NotificationsActivity;
 import com.parkshare.frontend.databinding.FragmentDriverProfileBinding;
 import com.parkshare.frontend.repository.AuthRepository;
 import com.parkshare.frontend.repository.BookingRepository;
+import com.parkshare.frontend.utils.AppModeRouter;
 import com.parkshare.frontend.utils.RepositoryCallback;
 import com.parkshare.frontend.utils.SessionManager;
 import com.parkshare.frontend.utils.ThemeManager;
@@ -64,11 +65,9 @@ public class DriverProfileFragment extends Fragment {
         binding.btnHelpSupport.setOnClickListener(v ->
                 Toast.makeText(requireContext(), "Help & Support clicked", Toast.LENGTH_SHORT).show());
 
-        binding.btnVerifyOwner.setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Verify Owner clicked", Toast.LENGTH_SHORT).show());
+        binding.btnVerifyOwner.setOnClickListener(v -> AppModeRouter.handleSwitchToOwner(requireContext()));
 
-        binding.cardSwitchToOwner.setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Switch to Owner clicked", Toast.LENGTH_SHORT).show());
+        binding.cardSwitchToOwner.setOnClickListener(v -> AppModeRouter.handleSwitchToOwner(requireContext()));
 
         binding.btnLogout.setOnClickListener(v -> logout());
     }

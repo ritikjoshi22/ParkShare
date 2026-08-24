@@ -30,6 +30,7 @@ class ParkingSpaceResource extends JsonResource
             'images' => ParkingImageResource::collection($this->whenLoaded('images')),
             'availability' => ParkingAvailabilityResource::collection($this->whenLoaded('availability')),
             'reviews_avg_rating' => $this->when(isset($this->reviews_avg_rating), $this->reviews_avg_rating),
+            'technicians' => ParkingTechnicianResource::collection($this->whenLoaded('parkingTechnicians')),
             'created_at' => $this->created_at?->toIso8601String(),
         ];
     }

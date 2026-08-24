@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.parkshare.frontend.activities.LoginActivity;
 import com.parkshare.frontend.databinding.FragmentOwnerProfileBinding;
 import com.parkshare.frontend.repository.AuthRepository;
+import com.parkshare.frontend.utils.AppModeRouter;
 import com.parkshare.frontend.utils.RepositoryCallback;
 import com.parkshare.frontend.utils.SessionManager;
 
@@ -36,7 +37,8 @@ public class OwnerProfileFragment extends Fragment {
         binding.tvName.setText(session.getFullName());
         binding.tvEmail.setText(session.getEmail());
         binding.tvPhone.setText(session.getPhone());
-        binding.cardLogout.setOnClickListener(v ->
+        binding.cardOwner.setOnClickListener(v -> AppModeRouter.openDriverDashboard(requireContext()));
+        binding.btnLogout.setOnClickListener(v ->
                 new AuthRepository(session).logout(new RepositoryCallback<Void>() {
                     @Override
                     public void onSuccess(Void data) {

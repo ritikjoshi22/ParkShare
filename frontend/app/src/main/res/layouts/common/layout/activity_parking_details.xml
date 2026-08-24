@@ -165,6 +165,25 @@
                 android:textStyle="bold"
                 app:cornerRadius="16dp" />
 
+            <TextView
+                android:id="@+id/tvTechniciansHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/technician_assistance"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTechnicians"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
+
             <!-- Support Java Bindings (Hidden) -->
             <com.google.android.material.button.MaterialButton android:id="@+id/btnNavigate" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
             <com.google.android.material.button.MaterialButton android:id="@+id/btnChat" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />

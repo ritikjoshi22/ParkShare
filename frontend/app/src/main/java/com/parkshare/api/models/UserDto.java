@@ -18,6 +18,12 @@ public class UserDto {
     @SerializedName("role")
     private String role;
 
+    @SerializedName("capabilities")
+    private CapabilitiesDto capabilities;
+
+    @SerializedName("owner")
+    private OwnerStatusDto owner;
+
     @SerializedName("profile_image")
     private String profileImage;
 
@@ -45,6 +51,18 @@ public class UserDto {
 
     public String getRole() {
         return role;
+    }
+
+    public CapabilitiesDto getCapabilities() {
+        return capabilities;
+    }
+
+    public OwnerStatusDto getOwner() {
+        return owner;
+    }
+
+    public boolean hasOwnerCapability() {
+        return capabilities != null && capabilities.isOwner();
     }
 
     public String getProfileImage() {

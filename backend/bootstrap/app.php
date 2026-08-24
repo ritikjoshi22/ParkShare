@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'active' => EnsureUserIsActive::class,
+            'approved.owner' => \App\Http\Middleware\EnsureApprovedOwner::class,
         ]);
 
     })

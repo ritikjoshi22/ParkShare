@@ -5,14 +5,17 @@ use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\FavoriteParkingController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\OwnerStatsController;
+use App\Http\Controllers\Api\OwnerVerificationController;
 use App\Http\Controllers\Api\ParkingAvailabilityController;
 use App\Http\Controllers\Api\ParkingImageController;
 use App\Http\Controllers\Api\ParkingSlotController;
 use App\Http\Controllers\Api\ParkingSpaceController;
+use App\Http\Controllers\Api\ParkingTechnicianController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\SOSRequestController;
 use App\Http\Controllers\Api\SystemSettingsController;
+use App\Http\Controllers\Api\TechnicianController;
 use App\Http\Controllers\Api\TechnicianServiceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WebhookController;
@@ -45,7 +48,26 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
         Route::delete('users/{user}', [UserController::class, 'destroy']);
     });
 
-    Route::get('owner/stats', [OwnerStatsController::class, 'index']);
+    Route::prefix('owner')->group(function () {
+        Route::get('status', [OwnerVerificationController::class, 'status']);
+        Route::get('verification', [OwnerVerificationController::class, 'show']);
+        Route::put('verification/step/{step}', [OwnerVerificationController::class, 'saveStep'])->whereNumber('step');
+        Route::post('documents', [OwnerVerificationController::class, 'uploadDocument']);
+        Route::delete('documents/{ownerDocument}', [OwnerVerificationController::class, 'deleteDocument']);
+        Route::post('verification/submit', [OwnerVerificationController::class, 'submit']);
+
+        Route::middleware('approved.owner')->group(function () {
+            Route::get('dashboard', [OwnerVerificationController::class, 'dashboard']);
+            Route::get('stats', [OwnerStatsController::class, 'index']);
+
+            Route::get('parking-spaces/{parking_space}/technicians', [ParkingTechnicianController::class, 'ownerIndex']);
+            Route::post('parking-spaces/{parking_space}/technicians', [ParkingTechnicianController::class, 'store']);
+            Route::put('parking-spaces/{parking_space}/technicians/{parkingTechnician}', [ParkingTechnicianController::class, 'update']);
+            Route::delete('parking-spaces/{parking_space}/technicians/{parkingTechnician}', [ParkingTechnicianController::class, 'destroy']);
+        });
+    });
+
+    Route::get('parking-spaces/{parking_space}/technicians', [ParkingTechnicianController::class, 'index']);
 
     Route::apiResource('parking-spaces', ParkingSpaceController::class);
     Route::post('parking-spaces/{parking_space}/images', [ParkingImageController::class, 'store']);

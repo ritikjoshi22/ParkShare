@@ -14,21 +14,7 @@ public final class RoleRouter {
     }
 
     public static void openDashboard(Context context) {
-        SessionManager session = SessionManager.getInstance(context);
-        if (!session.isLoggedIn()) {
-            context.startActivity(new Intent(context, LoginActivity.class));
-            return;
-        }
-        Intent intent;
-        if (session.isOwner()) {
-            intent = new Intent(context, OwnerMainActivity.class);
-        } else if (session.isTechnician()) {
-            intent = new Intent(context, TechnicianMainActivity.class);
-        } else {
-            intent = new Intent(context, DriverMainActivity.class);
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
+        AppModeRouter.openInitialDashboard(context);
     }
 
     public static boolean isRoleAllowed(Context context, String requiredRole) {

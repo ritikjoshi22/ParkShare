@@ -42,12 +42,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend">
 
-<<<<<<< HEAD
-        <activity android:name=".activities.SplashActivity"
-=======
         <activity
             android:name=".activities.SplashActivity"
->>>>>>> 5e2370f769e3e155f188e3661c53970ad68bccac
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -158,6 +154,21 @@
 
         <activity
             android:name=".activities.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.owner.OwnerVerificationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.owner.OwnerVerificationStatusActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Frontend.NoActionBar" />
+
+        <activity
+            android:name=".activities.owner.ManageTechniciansActivity"
             android:exported="false"
             android:theme="@style/Theme.Frontend.NoActionBar" />
 

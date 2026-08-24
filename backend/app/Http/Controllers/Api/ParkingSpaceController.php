@@ -73,7 +73,7 @@ class ParkingSpaceController extends ApiController
     {
         $this->authorize('view', $parkingSpace);
 
-        $parkingSpace->load(['images', 'owner', 'availability', 'reviews.user'])
+        $parkingSpace->load(['images', 'owner', 'availability', 'reviews.user', 'parkingTechnicians' => fn ($q) => $q->where('is_active', true)])
             ->loadAvg('reviews', 'rating');
 
         return $this->success(new ParkingSpaceResource($parkingSpace));
